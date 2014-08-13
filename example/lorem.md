@@ -27,7 +27,6 @@ Use 3 dashes for an em-dash. Use 2 dashes for ranges (ex. "it's all in
 chapters 12--14"). Three dots ... will be converted to an ellipsis.
 
 
-
 An h2 header
 ------------
 
@@ -63,7 +62,6 @@ for i in range(10):
     time.sleep(0.5)
     print i
 ~~~
-
 
 
 ### An h3 header ###
@@ -125,5 +123,3 @@ Inline math equations go in like so: $\omega = d\phi / dt$. Display
 math should get its own line and be put in in double-dollarsigns:
 
 $$I = \int \rho R^{2} dV$$
-
-Done.
