@@ -5,6 +5,9 @@ b'This module requires Python 2.7.x'
 # Built-in modules #
 import os, sys, re, inspect, argparse, tempfile, shutil, codecs
 
+# Internal modules #
+import pymarktex
+
 # Third party modules #
 import sh, pystache
 
@@ -31,8 +34,8 @@ class Document(object):
             'company':     os.environ.get('USER_COMPANY'),
             'subcompany':  os.environ.get('USER_SUBCOMPANY'),
             'title':       "Auto-generated report",
-            'image_left':  current_dir + 'ebc.png',
-            'image_right': current_dir + 'uu.png',
+            'image_left':  pymarktex.logo_dir + 'ebc.png',
+            'image_right': pymarktex.logo_dir + 'uu.png',
         }
 
     @property
@@ -76,7 +79,8 @@ class Template(object):
         if escape is None: escape = lambda u: u
         if delimiters is None: delimiters = (u'@@[', u']@@')
         pystache.defaults.DELIMITERS = delimiters
-        return pystache.Renderer(escape=escape).render(self)
+        renderer = pystache.Renderer(escape=escape)
+        return renderer.render(self, search_dirs=pymarktex.template_dir)
 
 ###############################################################################
 class HeaderTemplate(Template):
