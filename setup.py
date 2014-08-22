@@ -2,7 +2,7 @@ from distutils.core import setup
 
 setup(
         name             = 'pymarktex',
-        version          = '1.0.1',
+        version          = '1.0.2',
         description      = 'Will convert a markdown text file to a fancy PDF document',
         long_description = open('README.md').read(),
         license          = 'MIT',
