@@ -1,10 +1,13 @@
 from distutils.core import setup
 
+with open('README.md') as readme:
+        long_description = readme.read()
+
 setup(
         name             = 'pymarktex',
         version          = '1.0.2',
         description      = 'Will convert a markdown text file to a fancy PDF document',
-        long_description = open('README.md').read(),
+        long_description = long_description,
         license          = 'MIT',
         url              = 'http://github.com/xapple/pymarktex/',
         author           = 'Lucas Sinclair',
