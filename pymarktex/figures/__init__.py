@@ -5,14 +5,15 @@ from __future__ import division
 
 # Internal modules #
 from pymarktex import Template
+from plumbing.autopaths import FilePath
 
 # Third party modules #
 
 ###############################################################################
 class LatexFigure(Template):
     def check(self):
-        if self.path.count('.') > 1:
-            raise Exception("Can't have several extension in a LaTeX file path.")
+        if self.path.filename.count('.') > 1:
+            raise Exception("Can't have several extension in a LaTeX figure file name.")
 
 ###############################################################################
 class ScaledFigure(LatexFigure):
@@ -22,10 +23,10 @@ class ScaledFigure(LatexFigure):
 
     def __init__(self, path, caption, label=None, **kwargs):
         # Attributes #
-        self.path, self.caption = path, caption
+        self.path, self.caption = FilePath(path), caption
         self.label = r"\label{" + label + "}\n" if label is not None else ''
         self.kwargs = kwargs
-        self.check()
+        #self.check()
 
     def path(self): return self.path
     def caption(self): return self.caption
@@ -43,15 +44,15 @@ class DualFigure(LatexFigure):
 
     def __init__(self, path_one, path_two, caption_one, caption_two, label_one, label_two, caption_main, label_main):
         # Attributes #
-        self.path_one, self.path_two = path_one, path_two
+        self.path_one, self.path_two = FilePath(path_one), FilePath(path_two)
         self.caption_one, self.caption_two = caption_one, caption_two
         self.label_one = r"\label{" + label_one + "}\n" if label_one is not None else ''
         self.label_two = r"\label{" + label_two + "}\n" if label_two is not None else ''
         self.caption_main = caption_main
         self.label_main = r"\label{" + label_main + "}\n" if label_main is not None else ''
         # Check #
-        if self.path_one.count('.') > 1 or self.path_two.count('.') > 1:
-            raise Exception("Can't have several extension in a LaTeX file path.")
+        if self.path_one.filename.count('.') > 1 or self.path_two.filename.count('.') > 1:
+            raise Exception("Can't have several extension in a LaTeX figure file name.")
 
     def path_one(self): return self.path_one
     def path_two(self): return self.path_two
