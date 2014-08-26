@@ -94,7 +94,8 @@ class Template(object):
     escape = lambda self: lambda u: u
     def __repr__(self): return '<%s object on %s>' % (self.__class__.__name__, self.parent)
     def __init__(self, options=None): self.options = options if options else {}
-    def __str__(self, escape=None, delimiters=None):
+    def __str__(self, escape=None, delimiters=None): return self.render()
+    def render(self, escape=None, delimiters=None):
         escape = self.escape() if escape is None else escape
         delimiters = self.delimiters if delimiters is None else delimiters
         pystache.defaults.DELIMITERS = delimiters

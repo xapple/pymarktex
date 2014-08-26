@@ -8,6 +8,7 @@ Dependencies:
 * These two python libraries: `sh`, `pystache` (you can install them with `pip`).
 
 You can use it from the shell like this:
-$ pymarktex lorem.md
+
+    $ pymarktex lorem.md
 
 And it will generate the corresponding `lorem.pdf` file in the same directory.
