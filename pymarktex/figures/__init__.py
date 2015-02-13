@@ -11,9 +11,7 @@ from plumbing.autopaths import FilePath
 
 ###############################################################################
 class LatexFigure(Template):
-    def check(self):
-        if self.path.filename.count('.') > 1:
-            raise Exception("Can't have several extension in a LaTeX figure file name.")
+    pass
 
 ###############################################################################
 class ScaledFigure(LatexFigure):
@@ -26,7 +24,9 @@ class ScaledFigure(LatexFigure):
         self.path, self.caption = FilePath(path), caption
         self.label = r"\label{" + label + "}\n" if label is not None else ''
         self.kwargs = kwargs
-        #self.check()
+        # Checks #
+        if not self.path.exists: raise Exception("No file at '%s'." % self.path)
+        if self.path.filename.count('.') > 1: raise Exception("Can't have several extension in a LaTeX figure file name.")
 
     def path(self): return self.path
     def caption(self): return self.caption
@@ -51,6 +51,7 @@ class DualFigure(LatexFigure):
         self.caption_main = caption_main
         self.label_main = r"\label{" + label_main + "}\n" if label_main is not None else ''
         # Check #
+        if not self.path_one.exists or not self.path_two.exists: raise Exception("File missing.")
         if self.path_one.filename.count('.') > 1 or self.path_two.filename.count('.') > 1:
             raise Exception("Can't have several extension in a LaTeX figure file name.")
 
