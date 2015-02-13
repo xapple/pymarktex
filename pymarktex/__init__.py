@@ -71,7 +71,7 @@ class Document(object):
 
     def make_pdf(self):
         """Call XeLaTeX (twice for cross-referencing"""
-        self.tmp_dir = tempfile.mkdtemp() + "/"
+        self.tmp_dir  = tempfile.mkdtemp() + "/"
         self.tmp_path = self.tmp_dir + 'main.tex'
         with codecs.open(self.tmp_path, 'w', encoding='utf8') as handle: handle.write(self.latex)
         self.params = ["--interaction=nonstopmode", '-output-directory']
@@ -92,9 +92,11 @@ class Template(object):
     """The template base class"""
     delimiters = (u'@@[', u']@@')
     escape = lambda self: lambda u: u
+
     def __repr__(self): return '<%s object on %s>' % (self.__class__.__name__, self.parent)
     def __init__(self, options=None): self.options = options if options else {}
     def __str__(self, escape=None, delimiters=None): return self.render()
+
     def render(self, escape=None, delimiters=None):
         escape = self.escape() if escape is None else escape
         delimiters = self.delimiters if delimiters is None else delimiters
