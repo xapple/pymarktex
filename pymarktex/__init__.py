@@ -69,15 +69,15 @@ class Document(object):
         self.footer = FooterTemplate()
         self.latex = str(self.header) + self.body + str(self.footer)
 
-    def make_pdf(self):
-        """Call XeLaTeX (twice for cross-referencing"""
+    def make_pdf(self, safe=False):
+        """Call XeLaTeX (twice for cross-referencing)"""
         self.tmp_dir  = tempfile.mkdtemp() + "/"
         self.tmp_path = self.tmp_dir + 'main.tex'
         with codecs.open(self.tmp_path, 'w', encoding='utf8') as handle: handle.write(self.latex)
         self.params = ["--interaction=nonstopmode", '-output-directory']
         self.params += [self.tmp_dir, self.tmp_path]
-        sh.xelatex(*self.params)
-        sh.xelatex(*self.params)
+        sh.xelatex(*self.params, _ok_code=[0] if not safe else [0,1])
+        sh.xelatex(*self.params, _ok_code=[0] if not safe else [0,1])
         # Move into place #
         shutil.move(self.tmp_dir + 'main.pdf', self.output_path)
 
