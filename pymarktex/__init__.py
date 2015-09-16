@@ -87,11 +87,9 @@ class Document(object):
         self.make_latex(params=self.params)
         self.make_pdf()
 
-    web_location = property(lambda self: os.environ.get('HOME', '~') + '/' + self.export_base)
-    url = property(lambda self: "https://export.uppmax.uu.se/" + self.export_base)
-
     def web_export(self):
         """Copy the report to the webexport directory where it can be viewed by anyone"""
+        self.web_location.directory.create(safe=True)
         shutil.copy(self.output_path, self.web_location)
 
 ###############################################################################
