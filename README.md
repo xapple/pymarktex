@@ -1,4 +1,6 @@
-## pymarktex
+[![changelog](http://allmychanges.com/p/python/pymarktex/badge/)](http://allmychanges.com/p/python/pymarktex/?utm_source=badge) [![PyPI version](https://badge.fury.io/py/pymarktex.svg)](https://badge.fury.io/py/pymarktex)
+
+# `pymarktex` version 1.0.2
 
 This program creates a PDF file out of a specifically formated markdown text file.
 In particular, the markdown file can contain extra information that
@@ -21,4 +23,9 @@ And it will generate the corresponding `lorem.pdf` file in the same directory.
     $ tar xzf install-tl-unx.tar.gz
     $ cd install-tl-20141218
     $ ./install-tl -gui text
-    Change the install directory to something like: ~/programs/textlive/2014
+
+Then, change the install directory to something like: `~/programs/textlive/2014`
+
+### Code documentation
+More documentation is available at:
+http://xapple.github.io/pymarktex/

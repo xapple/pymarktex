@@ -7,3 +7,11 @@
 \#*
 .#*
 ._*
+
+
+# IDE files #
+/.idea
+
+# Automatic documentation #
+documentation/automatic
+documentation/html
