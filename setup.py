@@ -2,7 +2,7 @@ from distutils.core import setup
 
 setup(
     name             = 'pymarktex',
-    version          = '1.0.3',
+    version          = '1.0.4',
     description      = 'Will convert a markdown text file to a fancy PDF document',
     license          = 'MIT',
     url              = 'http://github.com/xapple/pymarktex/',
