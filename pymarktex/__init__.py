@@ -16,7 +16,9 @@ repos_dir = os.path.abspath(module_dir + '/../') + '/'
 
 # Various paths #
 logo_dir = repos_dir + 'logos/'
-template_dir = repos_dir + 'templates/'
+
+# Header and Footer #
+from pymarktex.templates.envonautics import HeaderTemplate, FooterTemplate
 
 ###############################################################################
 class Document(object):
@@ -41,6 +43,7 @@ class Document(object):
             'title':       "Auto-generated report",
             'image_left':  logo_dir + 'ebc.png',
             'image_right': logo_dir + 'uu.png',
+            'image_path':  logo_dir + 'envonautics.png',
         }
 
     @property
@@ -61,12 +64,12 @@ class Document(object):
         self.body = sh.pandoc(_in=self.markdown.encode('utf8'), read='markdown', write='latex')
         self.body = self.body.stdout.decode('utf8')
 
-    def make_latex(self, params=None):
+    def make_latex(self, params=None, header=None, footer=None):
         """Add the header and footer"""
         options = self.default_options.copy()
         if params: options.update(params)
-        self.header = HeaderTemplate(options)
-        self.footer = FooterTemplate()
+        self.header = HeaderTemplate(options) if header is None else header
+        self.footer = FooterTemplate()        if footer is None else footer
         self.latex = str(self.header) + self.body + str(self.footer)
 
     def make_pdf(self, safe=False):
@@ -96,31 +99,25 @@ class Document(object):
 class Template(object):
     """The template base class"""
     delimiters = (u'@@[', u']@@')
-    escape = lambda self: lambda u: u
+    escape     = lambda u: u
+    str_encoding   = 'utf8'
+    file_encoding  = 'utf8'
 
     def __repr__(self): return '<%s object on %s>' % (self.__class__.__name__, self.parent)
-    def __init__(self, options=None): self.options = options if options else {}
-    def __str__(self, escape=None, delimiters=None): return self.render()
+    def __str__(self): return self.render()
 
-    def render(self, escape=None, delimiters=None):
-        escape = self.escape() if escape is None else escape
-        delimiters = self.delimiters if delimiters is None else delimiters
+    def __init__(self, options=None):
+        self.options = options if options else {}
+
+    def render(self, escape=None, search_dirs=None, delimiters=None, str_encoding=None, file_encoding=None):
+        escape        = self.escape        if escape is None        else escape
+        search_dirs   = self.search_dirs   if search_dirs is None   else search_dirs
+        delimiters    = self.delimiters    if delimiters is None    else delimiters
+        str_encoding  = self.str_encoding  if str_encoding is None  else str_encoding
+        file_encoding = self.file_encoding if file_encoding is None else file_encoding
         pystache.defaults.DELIMITERS = delimiters
-        renderer = pystache.Renderer(escape=escape, search_dirs=template_dir)
+        renderer = pystache.Renderer(escape          = escape,
+                                     search_dirs     = search_dirs,
+                                     string_encoding = str_encoding,
+                                     file_encoding   = file_encoding)
         return renderer.render(self)
-
-###############################################################################
-class HeaderTemplate(Template):
-    """All the parameters to be rendered in the LaTeX header template"""
-    def name(self):        return self.options.get('name')
-    def status(self):      return self.options.get('status')
-    def company(self):     return self.options.get('company')
-    def subcompany(self):  return self.options.get('subcompany')
-    def title(self):       return self.options.get('title')
-    def image_left(self):  return self.options.get('image_left')
-    def image_right(self): return self.options.get('image_right')
-
-###############################################################################
-class FooterTemplate(Template):
-    """All the parameters to be rendered in the LaTeX footer template"""
-    pass
