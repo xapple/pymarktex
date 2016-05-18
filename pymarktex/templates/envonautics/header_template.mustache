@@ -5,6 +5,7 @@
 \usepackage{lmodern}
 \usepackage{amssymb,amsmath}
 \usepackage{color}
+\usepackage[table]{xcolor}
 
 % For native UTF-8 characters in XeTeX
 \usepackage{fontspec}
@@ -42,6 +43,7 @@
 
 % For justifying text
 \usepackage{ragged2e}
+\setlength{\RaggedRightParindent}{\parindent}
 
 % Get URLs %
 \usepackage[unicode=true]{hyperref}
@@ -100,6 +102,8 @@
 \pagestyle{fancy}
 \setlength\headheight{4\baselineskip}
 \fancyheadoffset{0cm}
+% Removes the section and subsections for the header
+\fancyhf{}
 % Removes the footer page numbering
 \fancyfoot[C]{}
 \let\headrule\relax
@@ -107,25 +111,22 @@
 \newcolumntype{R}[1]{>{\RaggedLeft\arraybackslash}p{#1}}
 % Body of the header
 \chead{
-  \begin{tabular}{ p{6.5cm} R{6cm} p{0.7cm}}
+  \begin{tabular}{ p{6.5cm} R{6cm} p{0.9cm}}
     \small
-    Lucas Sinclair, PhD. student\newline
-  \vspace{0.5mm}
-    Alexander Eiler, Prof. Docent \newline
-  \vspace{0.8mm}
+    Lucas Sinclair, PhD. student \newline
+    \vspace{1.5mm} \hspace{-2.3mm} Alexander Eiler, Prof. Docent \newline
     \textbf{ENVONAUTICS.COM}
-  \vspace{1.5mm}
   &
-    \small \textbf{@@[title]@@} \newline
+    \small \textbf{Demultiplexing report} \newline
   \vspace{0.5mm}
     \today \newline
   \vspace{0.8mm}
     Page \thepage\ of \pageref{LastPage}
-  \vspace{1.5mm}
+  \vspace{1.0mm}
   &
-    \raisebox{-11mm}{
+    \raisebox{-10mm}{
   \hspace{-4mm}
-  \includegraphics[height=15mm]{@@[image_path]@@}} \\
+  \includegraphics[height=13mm]{/Users/sinclair/repos/pymarktex/logos/envonautics.png}} \\
     \hline
   \end{tabular}
 \\[0.3cm]

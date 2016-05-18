@@ -17,9 +17,6 @@ repos_dir = os.path.abspath(module_dir + '/../') + '/'
 # Various paths #
 logo_dir = repos_dir + 'logos/'
 
-# Header and Footer #
-from pymarktex.templates.envonautics import HeaderTemplate, FooterTemplate
-
 ###############################################################################
 class Document(object):
     """The main object is the document to be generated from markdown text."""
@@ -68,11 +65,13 @@ class Document(object):
         """Add the header and footer"""
         options = self.default_options.copy()
         if params: options.update(params)
+        # Header and Footer #
+        from pymarktex.templates.envonautics import HeaderTemplate, FooterTemplate
         self.header = HeaderTemplate(options) if header is None else header
         self.footer = FooterTemplate()        if footer is None else footer
         self.latex = str(self.header) + self.body + str(self.footer)
 
-    def make_pdf(self, safe=False):
+    def make_pdf(self, safe=False, include_src=False):
         """Call XeLaTeX (twice for cross-referencing)"""
         self.tmp_dir  = tempfile.mkdtemp() + "/"
         self.tmp_path = self.tmp_dir + 'main.tex'
@@ -83,6 +82,8 @@ class Document(object):
         sh.xelatex(*self.params, _ok_code=[0] if not safe else [0,1])
         # Move into place #
         shutil.move(self.tmp_dir + 'main.pdf', self.output_path)
+        # Show the latex source #
+        if include_src: self.output_path.replace_extension('tex').write(self.latex, encoding='utf-8')
 
     def generate(self):
         self.load_markdown()
@@ -98,8 +99,8 @@ class Document(object):
 ###############################################################################
 class Template(object):
     """The template base class"""
-    delimiters = (u'@@[', u']@@')
-    escape     = lambda u: u
+    delimiters     = (u'@@[', u']@@')
+    escape         = lambda s: lambda u: u # Needed otherwise celled with self
     str_encoding   = 'utf8'
     file_encoding  = 'utf8'
 
@@ -110,13 +111,13 @@ class Template(object):
         self.options = options if options else {}
 
     def render(self, escape=None, search_dirs=None, delimiters=None, str_encoding=None, file_encoding=None):
-        escape        = self.escape        if escape is None        else escape
-        search_dirs   = self.search_dirs   if search_dirs is None   else search_dirs
         delimiters    = self.delimiters    if delimiters is None    else delimiters
+        pystache.defaults.DELIMITERS = delimiters
+        escape        = self.escape        if escape is None        else escape
+        #search_dirs   = self.search_dirs   if search_dirs is None   else search_dirs
         str_encoding  = self.str_encoding  if str_encoding is None  else str_encoding
         file_encoding = self.file_encoding if file_encoding is None else file_encoding
-        pystache.defaults.DELIMITERS = delimiters
-        renderer = pystache.Renderer(escape          = escape,
+        renderer = pystache.Renderer(escape          = escape(),
                                      search_dirs     = search_dirs,
                                      string_encoding = str_encoding,
                                      file_encoding   = file_encoding)
