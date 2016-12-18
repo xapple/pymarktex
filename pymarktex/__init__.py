@@ -6,6 +6,9 @@ __version__ = '1.0.4'
 # Built-in modules #
 import os, sys, re, tempfile, shutil, codecs
 
+# First party modules #
+from plumbing.common import tail
+
 # Third party modules #
 import sh, pystache
 
@@ -40,7 +43,7 @@ class Document(object):
             'title':       "Auto-generated report",
             'image_left':  logo_dir + 'ebc.png',
             'image_right': logo_dir + 'uu.png',
-            'image_path':  logo_dir + 'envonautics.png',
+            'image_path':  logo_dir + 'logo.png',
         }
 
     @property
@@ -66,24 +69,43 @@ class Document(object):
         options = self.default_options.copy()
         if params: options.update(params)
         # Header and Footer #
-        from pymarktex.templates.envonautics import HeaderTemplate, FooterTemplate
+        from pymarktex.templates.sinclair_bio import HeaderTemplate, FooterTemplate
         self.header = HeaderTemplate(options) if header is None else header
         self.footer = FooterTemplate()        if footer is None else footer
         self.latex = str(self.header) + self.body + str(self.footer)
 
     def make_pdf(self, safe=False, include_src=False):
         """Call XeLaTeX (twice for cross-referencing)"""
-        self.tmp_dir  = tempfile.mkdtemp() + "/"
-        self.tmp_path = self.tmp_dir + 'main.tex'
+        # Paths #
+        self.tmp_dir    = tempfile.mkdtemp() + "/"
+        self.tmp_path   = self.tmp_dir + 'main.tex'
+        self.tmp_stdout = self.tmp_dir + 'stdout.txt'
+        self.tmp_stderr = self.tmp_dir + 'stderr.txt'
+        # Prepare #
         with codecs.open(self.tmp_path, 'w', encoding='utf8') as handle: handle.write(self.latex)
         self.params = ["--interaction=nonstopmode", '-output-directory']
         self.params += [self.tmp_dir, self.tmp_path]
-        sh.xelatex(*self.params, _ok_code=[0] if not safe else [0,1])
-        sh.xelatex(*self.params, _ok_code=[0] if not safe else [0,1])
+        # Call twice for references #
+        self.call_xelatex(safe)
+        self.call_xelatex(safe)
         # Move into place #
         shutil.move(self.tmp_dir + 'main.pdf', self.output_path)
         # Show the latex source #
         if include_src: self.output_path.replace_extension('tex').write(self.latex, encoding='utf-8')
+
+    def call_xelatex(self, safe=False):
+        try:
+            sh.xelatex(*self.params,
+                        _ok_code=[0] if not safe else [0,1],
+                        _err=self.tmp_stderr,
+                        _out=self.tmp_stdout)
+        except sh.ErrorReturnCode_1:
+            print '-'*60
+            print "Xelatex exited with return code 1."
+            print "Here is the tail of the stdout at '%s':" % self.tmp_stdout
+            print tail(self.tmp_stdout)
+            print '-'*60
+            raise
 
     def generate(self):
         self.load_markdown()
