@@ -2,45 +2,26 @@
 % Standard
 \documentclass[a4paper]{article}
 \usepackage[english]{babel}
-
-% For extra symbols
-%\usepackage{textcomp}
-%\usepackage{amssymb,amsmath}
-
-% Special font
-%\usepackage{lmodern}
-%\setmonofont[Scale=0.8]{Menlo}
-
-% For custom color
+\usepackage{lmodern}
+\usepackage{amssymb,amsmath}
 \usepackage{color}
 \usepackage[table]{xcolor}
 
 % For native UTF-8 characters in XeTeX
-%\usepackage{fontspec}
-%\usepackage[utf8]{inputenc}
-%\usepackage[T1]{fontenc}
+\usepackage{fontspec}
+\setmonofont[Scale=0.8]{Menlo}
 
 % For better lists
 \usepackage{enumerate}
 
 % For figures and geometry
 \usepackage{graphicx}
-\usepackage[hang,small,bf]{caption}
-\usepackage{wrapfig}
 \usepackage{float}
+\usepackage{grffile}
 
-% Other figures and geometry
-%\usepackage{grffile}
-%\usepackage{subcaption}
-
-% For special margins
-\usepackage[hmargin=3cm,vmargin=4cm]{geometry}
-
-% For multiple figures
-\usepackage{subfigure}
-
-% For landscape figures
-%\usepackage{rotating}
+% Bold the 'Figure #' in the caption and separate it with a period %
+\usepackage[labelfont=bf,labelsep=period,justification=raggedright]{caption}
+\usepackage{subcaption}
 
 % For the fancy header
 \usepackage{fancyhdr}
@@ -48,14 +29,17 @@
 \usepackage{lastpage}
 
 % For source code inclusion
-%\usepackage{listings}
-%\usepackage{fancyvrb}
-%\newcommand{\VerbBar}{|}
-%\newcommand{\VERB}{\Verb[commandchars=\\\{\}]}
-%\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+\usepackage{listings}
+\usepackage{fancyvrb}
+\newcommand{\VerbBar}{|}
+\newcommand{\VERB}{\Verb[commandchars=\\\{\}]}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+
+% For special margins
+\usepackage[hmargin=3cm,vmargin=4cm]{geometry}
 
 % For cool tables
-%\usepackage{longtable,booktabs}
+\usepackage{longtable,booktabs}
 
 % For justifying text
 \usepackage{ragged2e}
@@ -133,11 +117,9 @@
   \begin{tabular}{ p{6.5cm} R{6cm} p{0.7cm}}
     \small
     Lucas Sinclair, PhD \newline
-	\vspace{0.5mm}
-    Bioinformatics consultant \newline
-	\vspace{0.8mm}
-    \textbf{\url{www.sinclair.bio}}
-	\vspace{1.5mm}
+	\vspace{1.0mm} \hspace{-2.3mm} Bioinformatics consultant \newline
+	\textbf{\url{www.sinclair.bio}}
+	\vspace{1.0mm}
 	&
     \small \textbf{@@[title]@@} \newline
 	\vspace{0.5mm}
