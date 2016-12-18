@@ -5,6 +5,8 @@ from __future__ import division
 
 # Internal modules #
 from pymarktex import Template
+
+# First party modules #
 from plumbing.autopaths import FilePath
 
 # Third party modules #

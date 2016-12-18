@@ -63,23 +63,23 @@
 % given, the image width will not exceed the width or the height of the page.
 % Images get their normal width if they fit onto the page, but
 % are scaled down if they would overflow the margins.
-%\makeatletter
-%\def\ScaleWidthIfNeeded{%
-% \ifdim\Gin@nat@width>\linewidth
-%    \linewidth
-%  \else
-%    \Gin@nat@width
-%  \fi
-%}
-%\def\ScaleHeightIfNeeded{%
-%  \ifdim\Gin@nat@height>0.9\textheight
-%    0.9\textheight
-%  \else
-%    \Gin@nat@width
-%  \fi
-%}
-%\makeatother
-%\setkeys{Gin}{width=\ScaleWidthIfNeeded,height=\ScaleHeightIfNeeded,keepaspectratio}
+\makeatletter
+\def\ScaleWidthIfNeeded{%
+ \ifdim\Gin@nat@width>\linewidth
+    \linewidth
+  \else
+    \Gin@nat@width
+  \fi
+}
+\def\ScaleHeightIfNeeded{%
+  \ifdim\Gin@nat@height>0.9\textheight
+    0.9\textheight
+  \else
+    \Gin@nat@width
+  \fi
+}
+\makeatother
+\setkeys{Gin}{width=\ScaleWidthIfNeeded,height=\ScaleHeightIfNeeded,keepaspectratio}
 
 % ##################### PANDOC environment ##################### %
 \newenvironment{Shaded}{}{}
@@ -130,7 +130,7 @@
 	&
     \raisebox{-11mm}{
 	\hspace{-4mm}
-	\includegraphics[height=15mm]{@@[image_path]@@}} \\
+	\includegraphics[width=9mm]{@@[image_path]@@}} \\
     \hline
   \end{tabular}
 \\[0.3cm]
