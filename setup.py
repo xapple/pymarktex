@@ -8,7 +8,7 @@ setup(
     url              = 'http://github.com/xapple/pymarktex/',
     author           = 'Lucas Sinclair',
     author_email     = 'lucas.sinclair@me.com',
-    packages         = ['pymarktex'],
+    packages         = ['pymarktex', 'pymarktex.figures', 'pymarktex.templates'],
     scripts          = ['scripts/pymarktex'],
     install_requires = ['sh', 'pystache'],
     long_description = open('README.md').read(),

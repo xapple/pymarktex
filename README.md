@@ -21,7 +21,7 @@ And it will generate the corresponding `lorem.pdf` file in the same directory.
 
     $ wget http://mirror.ctan.org/systems/texlive/tlnet/install-tl-unx.tar.gz
     $ tar xzf install-tl-unx.tar.gz
-    $ cd install-tl-20141218
+    $ cd install-tl-*
     $ ./install-tl -gui text
 
 Then, change the install directory to something like: `~/programs/textlive/2014`
