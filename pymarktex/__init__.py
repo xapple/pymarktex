@@ -122,6 +122,7 @@ class Document(object):
         """Some reports used pickled properties to avoid recalculations."""
         if not hasattr(self, 'cache_dir'): raise Exception("No cache directory to purge.")
         self.cache_dir.remove()
+        self.cache_dir.create()
 
 ###############################################################################
 class Template(object):
