@@ -118,6 +118,11 @@ class Document(object):
         self.web_location.directory.create(safe=True)
         shutil.copy(self.output_path, self.web_location)
 
+    def purge_cache(self):
+        """Some reports used pickled properties to avoid recalculations."""
+        if not hasattr(self, 'cache_dir'): raise Exception("No cache directory to purge.")
+        self.cache_dir.remove()
+
 ###############################################################################
 class Template(object):
     """The template base class"""
