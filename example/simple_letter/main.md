@@ -1,0 +1,8 @@
+---
+title: Lorem
+---
+
+Ipsum
+=====
+
+Dolor
