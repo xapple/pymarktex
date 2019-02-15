@@ -9,8 +9,8 @@ class HeaderTemplate(Template):
     def company(self):     return self.options.get('company')
     def subcompany(self):  return self.options.get('subcompany')
     def title(self):       return self.options.get('title')
-    def image_left(self):  return self.options.get('image_left')
-    def image_right(self): return self.options.get('image_right')
+    def image_left(self):  return self.options.get('image_left').unix_style
+    def image_right(self): return self.options.get('image_right').unix_style
 
 ###############################################################################
 class FooterTemplate(Template):

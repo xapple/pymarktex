@@ -1,8 +1,8 @@
-from distutils.core import setup
+from setuptools import setup
 
 setup(
     name             = 'pymarktex',
-    version          = '1.0.4',
+    version          = '1.0.6',
     description      = 'Will convert a markdown text file to a fancy PDF document',
     license          = 'MIT',
     url              = 'http://github.com/xapple/pymarktex/',
@@ -10,6 +10,6 @@ setup(
     author_email     = 'lucas.sinclair@me.com',
     packages         = ['pymarktex', 'pymarktex.figures', 'pymarktex.templates'],
     scripts          = ['scripts/pymarktex'],
-    install_requires = ['sh', 'pystache'],
+    install_requires = ['autopaths', 'plumbing', 'sh', 'pystache'],
     long_description = open('README.md').read(),
 )

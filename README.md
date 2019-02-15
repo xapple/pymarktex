@@ -1,6 +1,7 @@
-[![changelog](http://allmychanges.com/p/python/pymarktex/badge/)](http://allmychanges.com/p/python/pymarktex/?utm_source=badge) [![PyPI version](https://badge.fury.io/py/pymarktex.svg)](https://badge.fury.io/py/pymarktex)
+[![PyPI version](https://badge.fury.io/py/pymarktex.svg)](https://badge.fury.io/py/pymarktex)
+[![changelog](http://allmychanges.com/p/python/pymarktex/badge/)](http://allmychanges.com/p/python/pymarktex/?utm_source=badge) 
 
-# `pymarktex` version 1.0.4
+# `pymarktex` version 1.0.6
 
 This program creates a PDF file out of a specifically formated markdown text file.
 In particular, the markdown file can contain extra information that
