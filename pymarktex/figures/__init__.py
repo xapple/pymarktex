@@ -7,7 +7,7 @@ from __future__ import division
 from pymarktex import Template
 
 # First party modules #
-from plumbing.autopaths import FilePath
+from autopaths.file_path import FilePath
 
 # Third party modules #
 
@@ -33,9 +33,8 @@ class ScaledFigure(LatexFigure):
         if not self.path.exists: raise Exception("No file at '%s'." % self.path)
         if self.path.filename.count('.') > 1: raise Exception("Can't have several extension in a LaTeX figure file name.")
 
-    def path(self): return self.path
-    def caption(self): return self.caption
-    def label(self): return self.label
+    def abs_path(self): return self.path.unix_style
+
     def graph_params(self):
         params = list('%s=%s' % (k,v) for k,v in self.kwargs.items())
         params += ['keepaspectratio']
@@ -60,10 +59,5 @@ class DualFigure(LatexFigure):
         if self.path_one.filename.count('.') > 1 or self.path_two.filename.count('.') > 1:
             raise Exception("Can't have several extension in a LaTeX figure file name.")
 
-    def path_one(self):     return self.path_one
-    def path_two(self):     return self.path_two
-    def caption_one(self):  return self.caption_one
-    def caption_two(self):  return self.caption_two
-    def label_one(self):    return self.label_one
-    def label_two(self):    return self.label_two
-    def caption_main(self): return self.caption_main
+    def abs_path_one(self): return self.path_one.unix_style
+    def abs_path_two(self): return self.path_two.unix_style
