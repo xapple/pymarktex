@@ -2,7 +2,7 @@ from setuptools import setup
 
 setup(
     name             = 'pymarktex',
-    version          = '1.0.7',
+    version          = '1.0.8',
     description      = 'Will convert a markdown text file to a fancy PDF document',
     license          = 'MIT',
     url              = 'http://github.com/xapple/pymarktex/',
