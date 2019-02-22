@@ -1,0 +1,1 @@
+include pymarktex/templates/*/*.mustache
