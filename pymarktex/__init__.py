@@ -97,6 +97,7 @@ class Document(object):
         self.tmp_path   = self.tmp_dir + 'main.tex'
         self.tmp_stdout = self.tmp_dir + 'stdout.txt'
         self.tmp_stderr = self.tmp_dir + 'stderr.txt'
+        self.tmp_log    = self.tmp_dir + 'main.log'
         # Prepare #
         with codecs.open(self.tmp_path, 'w', encoding='utf8') as handle: handle.write(self.latex)
         self.cmd_params  = ["--interaction=nonstopmode", '-output-directory']
@@ -124,8 +125,12 @@ class Document(object):
         except exception:
             print '-'*60
             print "Xelatex exited with return code 1."
-            print "Here is the tail of the stdout at '%s':" % self.tmp_stdout
-            print tail(self.tmp_stdout)
+            if self.tmp_stdout.exists:
+                print "Here is the tail of the stdout at '%s':" % self.tmp_stdout
+                print tail(self.tmp_stdout)
+            elif self.tmp_log.exists:
+                print "Here is the tail of the log at '%s':" % self.tmp_log
+                print tail(self.tmp_log)
             print '-'*60
             raise
 
