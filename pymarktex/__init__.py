@@ -68,8 +68,14 @@ class Document(object):
         self.input_path.must_exist()
         self.input = self.input_path.contents_utf8
         # Separate the top params and the rest of the markdown #
-        self.params, self.markdown = re.findall('\A---(.+?)---(.+)', self.input, re.M|re.DOTALL)[0]
-        # Parse the options #
+        find_results = re.findall('\A---(.+?)---(.+)', self.input, re.M|re.DOTALL)
+        # We did not find any parameters #
+        if not find_results:
+            self.params = {}
+            self.markdown = self.input
+            return
+        # We did find a set of parameters #
+        self.params, self.markdown = find_results[0]
         self.params = [i.partition(':')[::2] for i in self.params.strip().split('\n')]
         self.params = dict([(k.strip(),v.strip()) for k,v in self.params])
 
