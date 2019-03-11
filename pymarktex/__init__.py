@@ -4,7 +4,7 @@ b"""This module needs Python 2.7.x"""
 __version__ = '1.1.2'
 
 # Built-in modules #
-import os, sys, re, tempfile, shutil, codecs
+import os, sys, re, tempfile, shutil, codecs, importlib
 
 # First party modules #
 from plumbing.common import tail
@@ -32,12 +32,14 @@ class Document(object):
 
     def __repr__(self): return '<%s object on %s>' % (self.__class__.__name__, self.parent)
 
-    def __init__(self, input_path, output_path=None):
+    def __init__(self, input_path, output_path=None, builtin_template=None):
         # Input #
         self.input_path = FilePath(input_path)
         # Output #
         if output_path is None: self.output_path = self.default_output_name
         else:                   self.output_path = output_path
+        # Template #
+        self.builtin_template = builtin_template if builtin_template else 'sinclair_bio'
 
     def __call__(self, *args, **kwargs): return self.generate(*args, **kwargs)
 
@@ -90,8 +92,12 @@ class Document(object):
         """Add the header and footer"""
         options = self.default_options.copy()
         if params: options.update(params)
+        # Load the right templates #
+        if self.builtin_template:
+            subpackage = importlib.import_module('pymarktex.templates.' + self.builtin_template)
+            HeaderTemplate = subpackage.HeaderTemplate
+            FooterTemplate = subpackage.FooterTemplate
         # Header and Footer #
-        from pymarktex.templates.sinclair_bio import HeaderTemplate, FooterTemplate
         self.header = HeaderTemplate(options) if header is None else header
         self.footer = FooterTemplate()        if footer is None else footer
         self.latex = str(self.header) + self.body + str(self.footer)
