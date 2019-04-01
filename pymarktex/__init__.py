@@ -135,15 +135,15 @@ class Document(object):
                 _err=self.tmp_stderr,
                 _out=self.tmp_stdout)
         except exception:
-            print '-'*60
-            print "Xelatex exited with return code 1."
+            print('-'*60)
+            print("Xelatex exited with return code 1.")
             if self.tmp_stdout.exists:
-                print "Here is the tail of the stdout at '%s':" % self.tmp_stdout
-                print tail(self.tmp_stdout)
+                print("Here is the tail of the stdout at '%s':" % self.tmp_stdout)
+                print(tail(self.tmp_stdout))
             elif self.tmp_log.exists:
-                print "Here is the tail of the log at '%s':" % self.tmp_log
-                print tail(self.tmp_log)
-            print '-'*60
+                print("Here is the tail of the log at '%s':" % self.tmp_log)
+                print(tail(self.tmp_log))
+            print('-'*60)
             raise
 
     def web_export(self):
