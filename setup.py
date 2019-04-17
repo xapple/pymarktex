@@ -1,4 +1,4 @@
-from setuptools import setup
+from setuptools import setup, find_packages
 
 setup(
     name             = 'pymarktex',
@@ -8,7 +8,7 @@ setup(
     url              = 'http://github.com/xapple/pymarktex/',
     author           = 'Lucas Sinclair',
     author_email     = 'lucas.sinclair@me.com',
-    packages         = ['pymarktex', 'pymarktex.figures', 'pymarktex.templates'],
+    packages         = find_packages(),
     scripts          = ['scripts/pymarktex'],
     install_requires = ['autopaths', 'plumbing', 'sh', 'pystache'],
     long_description = open('README.md').read(),

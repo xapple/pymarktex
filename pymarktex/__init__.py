@@ -1,15 +1,13 @@
-b"""This module needs Python 2.7.x"""
-
 # Special variables #
+from autopaths.tmp_path import new_temp_dir
+
 __version__ = '1.1.6'
 
 # Built-in modules #
-import os, sys, re, tempfile, shutil, codecs, importlib
+import os, sys, re, shutil, codecs, importlib
 
 # First party modules #
-from plumbing.common import tail
-from autopaths.dir_path import DirectoryPath
-from autopaths.file_path import FilePath
+from autopaths import Path
 
 # Third party modules #
 import pystache
@@ -18,10 +16,10 @@ if os.name == "nt":    import pbs
 
 # Get paths to module #
 self       = sys.modules[__name__]
-module_dir = os.path.dirname(self.__file__) + '/'
+module_dir = Path(os.path.dirname(self.__file__))
 
 # The repository directory #
-repos_dir = DirectoryPath(module_dir).directory
+repos_dir = module_dir.directory
 
 # Various paths #
 logo_dir = repos_dir + 'logos/'
@@ -34,7 +32,7 @@ class Document(object):
 
     def __init__(self, input_path, output_path=None, builtin_template=None):
         # Input #
-        self.input_path = FilePath(input_path)
+        self.input_path = Path(input_path)
         # Output #
         if output_path is None: self.output_path = self.default_output_name
         else:                   self.output_path = output_path
@@ -83,20 +81,20 @@ class Document(object):
 
     def make_body(self):
         """Convert the body to LaTeX"""
-        kwargs = dict(_in=self.markdown.encode('utf8'), read='markdown', write='latex')
-        if os.name == "posix": self.body = sh.pandoc(**kwargs)
-        if os.name == "nt":    self.body = pbs.Command('pandoc')(**kwargs)
-        self.body = self.body.stdout.decode('utf8')
+        kwargs = dict(_in=self.markdown, read='markdown', write='latex')
+        if os.name == "posix":
+            self.body = sh.pandoc(**kwargs).stdout.decode('utf8')
+        if os.name == "nt":
+            self.body = pbs.Command('pandoc')(**kwargs).stdout
 
     def make_latex(self, params=None, header=None, footer=None):
         """Add the header and footer"""
         options = self.default_options.copy()
         if params: options.update(params)
         # Load the right templates #
-        if self.builtin_template:
-            subpackage = importlib.import_module('pymarktex.templates.' + self.builtin_template)
-            HeaderTemplate = subpackage.HeaderTemplate
-            FooterTemplate = subpackage.FooterTemplate
+        subpackage = importlib.import_module('pymarktex.templates.' + self.builtin_template)
+        HeaderTemplate = subpackage.HeaderTemplate
+        FooterTemplate = subpackage.FooterTemplate
         # Header and Footer #
         self.header = HeaderTemplate(options) if header is None else header
         self.footer = FooterTemplate()        if footer is None else footer
@@ -105,11 +103,11 @@ class Document(object):
     def make_pdf(self, safe=False, include_src=False):
         """Call XeLaTeX (twice for cross-referencing)"""
         # Paths #
-        self.tmp_dir    = DirectoryPath(tempfile.mkdtemp() + "/")
-        self.tmp_path   = self.tmp_dir + 'main.tex'
-        self.tmp_stdout = self.tmp_dir + 'stdout.txt'
-        self.tmp_stderr = self.tmp_dir + 'stderr.txt'
-        self.tmp_log    = self.tmp_dir + 'main.log'
+        self.tmp_dir    = new_temp_dir()
+        self.tmp_path   = Path(self.tmp_dir + 'main.tex')
+        self.tmp_stdout = Path(self.tmp_dir + 'stdout.txt')
+        self.tmp_stderr = Path(self.tmp_dir + 'stderr.txt')
+        self.tmp_log    = Path(self.tmp_dir + 'main.log')
         # Prepare #
         with codecs.open(self.tmp_path, 'w', encoding='utf8') as handle: handle.write(self.latex)
         self.cmd_params  = ["--interaction=nonstopmode", '-output-directory']
@@ -132,17 +130,17 @@ class Document(object):
         try:
             cmd(*self.cmd_params,
                 _ok_code=[0] if not safe else [0,1],
-                _err=self.tmp_stderr,
-                _out=self.tmp_stdout)
+                _err=str(self.tmp_stderr),
+                _out=str(self.tmp_stdout))
         except exception:
-            print('-'*60)
+            print('-'*60)fff
             print("Xelatex exited with return code 1.")
             if self.tmp_stdout.exists:
-                print("Here is the tail of the stdout at '%s':" % self.tmp_stdout)
-                print(tail(self.tmp_stdout))
+                print("Here is the tail of the stdout at '%s':" % self.tmp_stdout.unix_style)
+                print(self.tmp_stdout.pretty_tail)
             elif self.tmp_log.exists:
-                print("Here is the tail of the log at '%s':" % self.tmp_log)
-                print(tail(self.tmp_log))
+                print("Here is the tail of the log at '%s':" % self.tmp_log.unix_style)
+                print(self.tmp_log.pretty_tail)
             print('-'*60)
             raise
 
