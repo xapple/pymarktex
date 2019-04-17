@@ -133,7 +133,7 @@ class Document(object):
                 _err=str(self.tmp_stderr),
                 _out=str(self.tmp_stdout))
         except exception:
-            print('-'*60)fff
+            print('-'*60)
             print("Xelatex exited with return code 1.")
             if self.tmp_stdout.exists:
                 print("Here is the tail of the stdout at '%s':" % self.tmp_stdout.unix_style)
