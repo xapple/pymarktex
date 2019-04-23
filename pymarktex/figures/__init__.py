@@ -19,13 +19,13 @@ class LatexFigure(Template):
 
 ###############################################################################
 class ScaledFigure(LatexFigure):
-    """A figure in latex code which can have its size adjusted"""
+    """A figure in latex code which can have its size adjusted."""
 
     def __repr__(self): return '<%s object on %s>' % (self.__class__.__name__, self.parent)
 
     def __init__(self, path=None, caption=None, label=None, graph=None, **kwargs):
         # Check inputs #
-        if path is None and grpah is None:
+        if path is None and graph is None:
             raise Exception("You need to specify a graph or a path.")
         # Path #
         if path is not None:    self.path = FilePath(path)
@@ -46,7 +46,7 @@ class ScaledFigure(LatexFigure):
         if not self.path.exists: raise Exception("No file at '%s'." % self.path)
         # Check unique extension #
         if self.path.filename.count('.') > 1:
-            raise Exception("Can't have several extension in a LaTeX figure file name.")
+            raise Exception("Can't have several extensions in a LaTeX figure file name.")
 
     def abs_path(self): return self.path.unix_style
 
@@ -57,7 +57,7 @@ class ScaledFigure(LatexFigure):
 
 ###############################################################################
 class DualFigure(LatexFigure):
-    """A figure in latex code which has two subfigures"""
+    """A figure in latex code which has two subfigures."""
 
     def __repr__(self): return '<%s object on %s>' % (self.__class__.__name__, self.parent)
 

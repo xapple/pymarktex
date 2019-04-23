@@ -10,7 +10,7 @@ import os, sys, re, shutil, codecs, importlib
 from autopaths import Path
 
 # Third party modules #
-import pystache
+import pystache, plumbum
 if os.name == "posix": import sh
 if os.name == "nt":    import pbs
 
@@ -119,6 +119,10 @@ class Document(object):
         shutil.move(self.tmp_dir + 'main.pdf', self.output_path)
         # Show the latex source #
         if include_src: self.output_path.replace_extension('tex').write(self.latex, encoding='utf-8')
+
+    def call_xelatex_new(self, safe=False):
+        cmd = plumbum.local['xelatex']
+        ((cmd > self.tmp_stderr) >= self.tmp_stdout)()
 
     def call_xelatex(self, safe=False):
         if os.name == "posix":
