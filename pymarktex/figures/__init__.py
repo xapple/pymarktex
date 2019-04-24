@@ -21,8 +21,6 @@ class LatexFigure(Template):
 class ScaledFigure(LatexFigure):
     """A figure in latex code which can have its size adjusted."""
 
-    def __repr__(self): return '<%s object on %s>' % (self.__class__.__name__, self.parent)
-
     def __init__(self, path=None, caption=None, label=None, graph=None, **kwargs):
         # Check inputs #
         if path is None and graph is None:
@@ -58,8 +56,6 @@ class ScaledFigure(LatexFigure):
 ###############################################################################
 class DualFigure(LatexFigure):
     """A figure in latex code which has two subfigures."""
-
-    def __repr__(self): return '<%s object on %s>' % (self.__class__.__name__, self.parent)
 
     def __init__(self, path_one, path_two, caption_one, caption_two, label_one, label_two, caption_main, label_main):
         # Attributes #

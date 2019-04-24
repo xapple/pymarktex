@@ -12,7 +12,7 @@ from autopaths import Path
 # Third party modules #
 import pystache, plumbum
 if os.name == "posix": import sh
-if os.name == "nt":    import pbs
+if os.name == "nt":    import pbs3
 
 # Get paths to module #
 self       = sys.modules[__name__]
@@ -129,8 +129,8 @@ class Document(object):
             cmd = sh.xelatex
             exception = sh.ErrorReturnCode_1
         if os.name == "nt":
-            cmd = pbs.Command('xelatex.exe')
-            exception = pbs.ErrorReturnCode_1
+            cmd = pbs3.Command('xelatex.exe')
+            exception = pbs3.ErrorReturnCode_1
         try:
             cmd(*self.cmd_params,
                 _ok_code=[0] if not safe else [0,1],
