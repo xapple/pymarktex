@@ -7,7 +7,7 @@ from __future__ import division
 from pymarktex import Template
 
 # First party modules #
-from autopaths.file_path import FilePath
+from autopaths import Path
 
 # Third party modules #
 
@@ -15,7 +15,7 @@ from autopaths.file_path import FilePath
 class LatexFigure(Template):
     def escape_underscore(self, text):
         if text is None: return None
-        return text.replace('_', '\_')
+        return text.replace('_', '\\_')
 
 ###############################################################################
 class ScaledFigure(LatexFigure):
@@ -26,7 +26,7 @@ class ScaledFigure(LatexFigure):
         if path is None and graph is None:
             raise Exception("You need to specify a graph or a path.")
         # Path #
-        if path is not None:    self.path = FilePath(path)
+        if path is not None:    self.path = Path(path)
         else:                   self.path = graph.path
         # Caption #
         if caption is not None: self.caption = caption
@@ -59,7 +59,7 @@ class DualFigure(LatexFigure):
 
     def __init__(self, path_one, path_two, caption_one, caption_two, label_one, label_two, caption_main, label_main):
         # Attributes #
-        self.path_one,    self.path_two    = FilePath(path_one), FilePath(path_two)
+        self.path_one,    self.path_two    = Path(path_one), Path(path_two)
         self.caption_one, self.caption_two = map(self.escape_underscore, (caption_one, caption_two))
         self.caption_main = self.escape_underscore(caption_main)
         self.label_one    = r"\label{" + label_one + "}\n" if label_one is not None else ''

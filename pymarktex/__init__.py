@@ -1,6 +1,4 @@
 # Special variables #
-from autopaths.tmp_path import new_temp_dir
-
 __version__ = '1.1.8'
 
 # Built-in modules #
@@ -8,6 +6,7 @@ import os, sys, re, shutil, codecs, importlib
 
 # First party modules #
 from autopaths import Path
+from autopaths.tmp_path import new_temp_dir
 
 # Third party modules #
 import pystache, plumbum
@@ -85,7 +84,7 @@ class Document(object):
         if os.name == "posix":
             self.body = sh.pandoc(**kwargs).stdout.decode('utf8')
         if os.name == "nt":
-            self.body = pbs.Command('pandoc')(**kwargs).stdout
+            self.body = pbs3.Command('pandoc')(**kwargs).stdout
 
     def make_latex(self, params=None, header=None, footer=None):
         """Add the header and footer"""
@@ -93,11 +92,9 @@ class Document(object):
         if params: options.update(params)
         # Load the right templates #
         subpackage = importlib.import_module('pymarktex.templates.' + self.builtin_template)
-        HeaderTemplate = subpackage.HeaderTemplate
-        FooterTemplate = subpackage.FooterTemplate
         # Header and Footer #
-        self.header = HeaderTemplate(options) if header is None else header
-        self.footer = FooterTemplate()        if footer is None else footer
+        self.header = subpackage.HeaderTemplate(options) if header is None else header
+        self.footer = subpackage.FooterTemplate()        if footer is None else footer
         self.latex = str(self.header) + self.body + str(self.footer)
 
     def make_pdf(self, safe=False, include_src=False):
