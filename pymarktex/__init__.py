@@ -79,7 +79,7 @@ class Document(object):
         self.params = dict([(k.strip(),v.strip()) for k,v in self.params])
 
     def make_body(self):
-        """Convert the body to LaTeX"""
+        """Convert the body to LaTeX."""
         kwargs = dict(_in=self.markdown, read='markdown', write='latex')
         if os.name == "posix":
             self.body = sh.pandoc(**kwargs).stdout.decode('utf8')
@@ -117,11 +117,15 @@ class Document(object):
         # Show the latex source #
         if include_src: self.output_path.replace_extension('tex').write(self.latex, encoding='utf-8')
 
-    def call_xelatex_new(self, safe=False):
-        cmd = plumbum.local['xelatex']
-        ((cmd > self.tmp_stderr) >= self.tmp_stdout)()
-
     def call_xelatex(self, safe=False):
+        """Here we use the `pbs3` library under Windows and the sh` library under Unix.
+        There is a cross-compatible library called `plumbum` but has an awkward syntax:
+
+            cmd = plumbum.local['xelatex']
+            ((cmd > self.tmp_stderr) >= self.tmp_stdout)()
+
+        See https://github.com/tomerfiliba/plumbum/issues/441
+        """
         if os.name == "posix":
             cmd = sh.xelatex
             exception = sh.ErrorReturnCode_1
