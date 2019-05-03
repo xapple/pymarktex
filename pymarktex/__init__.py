@@ -9,7 +9,7 @@ from autopaths import Path
 from autopaths.tmp_path import new_temp_dir
 
 # Third party modules #
-import pystache, plumbum
+import pystache
 if os.name == "posix": import sh
 if os.name == "nt":    import pbs3
 
