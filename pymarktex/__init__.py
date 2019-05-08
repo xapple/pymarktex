@@ -9,9 +9,7 @@ from autopaths import Path
 from autopaths.tmp_path import new_temp_dir
 
 # Third party modules #
-import pystache
-if os.name == "posix": import sh
-if os.name == "nt":    import pbs3
+import pystache, pbs3
 
 # Get paths to module #
 self       = sys.modules[__name__]
@@ -81,13 +79,10 @@ class Document(object):
     def make_body(self):
         """Convert the body to LaTeX."""
         kwargs = dict(_in=self.markdown, read='markdown', write='latex')
-        if os.name == "posix":
-            self.body = sh.pandoc(**kwargs).stdout.decode('utf8')
-        if os.name == "nt":
-            self.body = pbs3.Command('pandoc')(**kwargs).stdout
+        self.body = pbs3.Command('pandoc')(**kwargs).stdout
 
     def make_latex(self, params=None, header=None, footer=None):
-        """Add the header and footer"""
+        """Add the header and footer."""
         options = self.default_options.copy()
         if params: options.update(params)
         # Load the right templates #
@@ -126,18 +121,14 @@ class Document(object):
 
         See https://github.com/tomerfiliba/plumbum/issues/441
         """
-        if os.name == "posix":
-            cmd = sh.xelatex
-            exception = sh.ErrorReturnCode_1
-        if os.name == "nt":
-            cmd = pbs3.Command('xelatex.exe')
-            exception = pbs3.ErrorReturnCode_1
+        if os.name == "posix":  cmd = pbs3.Command('xelatex')
+        if os.name == "nt":     cmd = pbs3.Command('xelatex.exe')
         try:
             cmd(*self.cmd_params,
                 _ok_code=[0] if not safe else [0,1],
                 _err=str(self.tmp_stderr),
                 _out=str(self.tmp_stdout))
-        except exception:
+        except pbs3.ErrorReturnCode_1:
             print('-'*60)
             print("Xelatex exited with return code 1.")
             if self.tmp_stdout.exists:
