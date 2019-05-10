@@ -140,10 +140,10 @@ class Document(object):
             print('-'*60)
             raise
 
-    def web_export(self):
-        """Copy the report to the webexport directory where it can be viewed by anyone"""
-        self.web_location.directory.create(safe=True)
-        shutil.copy(self.output_path, self.web_location)
+    def copy_to_outbox(self):
+        """Copy the report to the outbox directory where it can be viewed by anyone."""
+        self.outbox.directory.create(safe=True)
+        shutil.copy(self.output_path, self.outbox)
 
     def purge_cache(self):
         """Some reports used pickled properties to avoid recalculations."""
