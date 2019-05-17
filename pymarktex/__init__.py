@@ -1,5 +1,5 @@
 # Special variables #
-__version__ = '1.1.8'
+__version__ = '1.1.9'
 
 # Built-in modules #
 import os, sys, re, shutil, codecs, importlib
