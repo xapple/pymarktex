@@ -40,6 +40,8 @@ class ScaledFigure(LatexFigure):
         if graph is not None:   self.graph = graph
         # Keyword arguments #
         self.kwargs  = kwargs
+        # Call the graph if it's not generated #
+        if graph is not None and not graph: graph()
         # Check the file was created #
         if not self.path.exists: raise Exception("No file at '%s'." % self.path)
         # Check unique extension #
