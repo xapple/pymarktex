@@ -31,7 +31,7 @@ class ScaledFigure(LatexFigure):
         # Caption #
         if caption is not None: self.caption = caption
         else:                   self.caption = ''
-        if graph is not None and hasattr(graph, caption): self.caption = graph.caption
+        if graph is not None and hasattr(graph, 'caption'): self.caption = graph.caption
         # Label #
         if   label is not None: self.label = r"\label{" + label + "}\n"
         elif graph is not None: self.label = r"\label{" + graph.short_name + "}\n"
