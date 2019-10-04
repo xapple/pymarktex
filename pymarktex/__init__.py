@@ -31,18 +31,22 @@ class Document(object):
         # Input #
         self.input_path = Path(input_path)
         # Output #
-        if output_path is None: self.output_path = self.default_output_name
+        if output_path is None: self.output_path = sel  f.default_output_name
         else:                   self.output_path = output_path
         # Template #
         self.builtin_template = builtin_template if builtin_template else 'sinclair_bio'
 
-    def __call__(self, *args, **kwargs): return self.generate(*args, **kwargs)
+    def __call__(self, *args, **kwargs):
+        return self.generate(*args, **kwargs)
 
     def generate(self):
+        # Main steps #
         self.load_markdown()
         self.make_body()
         self.make_latex(params=self.params)
         self.make_pdf()
+        # For convenience #
+        return self.output_path
 
     @property
     def default_options(self):
