@@ -4,6 +4,8 @@ setup(
     name             = 'pymarktex',
     version          = '1.2.2',
     description      = 'Will convert a markdown text file to a fancy PDF document',
+    long_description = open('README.md').read(),
+    long_description_content_type = 'text/markdown',
     license          = 'MIT',
     url              = 'http://github.com/xapple/pymarktex/',
     author           = 'Lucas Sinclair',
