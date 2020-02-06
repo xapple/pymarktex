@@ -111,6 +111,8 @@ class Document(object):
         # Call twice for references #
         self.call_xelatex(safe)
         self.call_xelatex(safe)
+        # Check output directory exists #
+        out_dir = self.output_path.directory.create_if_not_exists()
         # Move into place #
         shutil.move(self.tmp_dir + 'main.pdf', self.output_path)
         # Show the latex source #
