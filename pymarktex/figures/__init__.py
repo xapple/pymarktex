@@ -17,11 +17,17 @@ class LatexFigure(Template):
         if text is None: return None
         return text.replace('_', '\\_')
 
+    def abs_path(self): return self.path.unix_style
+
 ###############################################################################
 class ScaledFigure(LatexFigure):
     """A figure in latex code which can have its size adjusted."""
 
-    def __init__(self, path=None, caption=None, label=None, graph=None, **kwargs):
+    def __init__(self, path    = None,
+                       caption = None,
+                       label   = None,
+                       graph   = None,
+                       **kwargs):
         # Check inputs #
         if path is None and graph is None:
             raise Exception("You need to specify a graph or a path.")
@@ -39,7 +45,7 @@ class ScaledFigure(LatexFigure):
         # Graph #
         if graph is not None:   self.graph = graph
         # Keyword arguments #
-        self.kwargs  = kwargs
+        self.kwargs = kwargs
         # Call the graph if it's not generated #
         if graph is not None and not graph: graph()
         # Check the file was created #
@@ -48,16 +54,19 @@ class ScaledFigure(LatexFigure):
         if self.path.filename.count('.') > 1:
             raise Exception("Can't have several extensions in a LaTeX figure file name.")
 
-    def abs_path(self): return self.path.unix_style
-
     def graph_params(self):
         params = list('%s=%s' % (k,v) for k,v in self.kwargs.items())
         params += ['keepaspectratio']
         return ','.join(params)
 
 ###############################################################################
+class BareFigure(ScaledFigure):
+    """A simple `includegraphics` command in latex code."""
+    pass
+
+###############################################################################
 class DualFigure(LatexFigure):
-    """A figure in latex code which has two subfigures."""
+    """A figure in latex code which has two sub-figures."""
 
     def __init__(self, path_one, path_two, caption_one, caption_two, label_one, label_two, caption_main, label_main):
         # Attributes #

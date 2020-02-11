@@ -159,7 +159,8 @@ class Document(object):
 
 ###############################################################################
 class Template(object):
-    """The template base class"""
+    """The template base class."""
+
     delimiters     = (u'@@[', u']@@')
     escape         = lambda s: lambda u: u # Needed otherwise celled with self
     search_dirs    = None
