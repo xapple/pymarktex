@@ -21,7 +21,13 @@ class LatexFigure(Template):
 
 ###############################################################################
 class ScaledFigure(LatexFigure):
-    """A figure in latex code which can have its size adjusted."""
+    """
+    A figure in latex code which can have its size adjusted.
+    For instance you can adjust the size like this:
+
+        >>> from pymarktex.figures import ScaledFigure
+        >>> return ScaledFigure(graph='~/graph.pdf', width='5em')
+    """
 
     def __init__(self, path    = None,
                        caption = None,
