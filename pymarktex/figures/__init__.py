@@ -26,7 +26,7 @@ class ScaledFigure(LatexFigure):
     For instance you can adjust the size like this:
 
         >>> from pymarktex.figures import ScaledFigure
-        >>> return ScaledFigure(graph='~/graph.pdf', width='5em')
+        >>> return ScaledFigure(path='~/graph.pdf', width='5em')
     """
 
     def __init__(self, path    = None,

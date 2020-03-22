@@ -112,14 +112,15 @@ class Document(object):
         self.call_xelatex(safe)
         self.call_xelatex(safe)
         # Check output directory exists #
-        out_dir = self.output_path.directory.create_if_not_exists()
+        self.output_path.directory.create_if_not_exists()
         # Move into place #
         shutil.move(self.tmp_dir + 'main.pdf', self.output_path)
         # Show the latex source #
         if include_src: self.output_path.replace_extension('tex').write(self.latex, encoding='utf-8')
 
     def call_xelatex(self, safe=False):
-        """Here we use the `pbs3` library under Windows and the sh` library under Unix.
+        """
+        Here we use the `pbs3` library under Windows and the sh` library under Unix.
         There is a cross-compatible library called `plumbum` but has an awkward syntax:
 
             cmd = plumbum.local['xelatex']
