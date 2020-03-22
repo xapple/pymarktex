@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 
 setup(
     name             = 'pymarktex',
-    version          = '1.2.5',
+    version          = '1.2.6',
     description      = 'Will convert a markdown text file to a fancy PDF document',
     long_description = open('README.md').read(),
     long_description_content_type = 'text/markdown',
