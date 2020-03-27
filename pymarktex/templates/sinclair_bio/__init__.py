@@ -1,5 +1,5 @@
 # Internal modules #
-from pymarktex import Template
+from pymarktex.templates import Template
 
 ###############################################################################
 class HeaderTemplate(Template):

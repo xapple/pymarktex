@@ -4,7 +4,7 @@ from __future__ import division
 # Built-in modules #
 
 # Internal modules #
-from pymarktex import Template
+from pymarktex.templates import Template
 
 # First party modules #
 from autopaths import Path

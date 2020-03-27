@@ -1,15 +1,21 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+
 # Special variables #
 __version__ = '1.2.7'
 
 # Built-in modules #
 import os, sys, re, shutil, codecs, importlib
 
+# Internal modules #
+import pymarktex.templates.sinclair_bio
+
 # First party modules #
 from autopaths import Path
 from autopaths.tmp_path import new_temp_dir
 
 # Third party modules #
-import pystache, pbs3
+import pbs3
 
 # Get paths to module #
 self       = sys.modules[__name__]
@@ -33,17 +39,19 @@ class Document(object):
         # Output #
         if output_path is None: self.output_path = self.default_output_name
         else:                   self.output_path = output_path
-        # Template #
-        self.builtin_template = builtin_template if builtin_template else 'sinclair_bio'
+        # Templates builtin #
+        if builtin_template:
+            subpackage = importlib.import_module('pymarktex.templates.' + builtin_template)
+            self.header_template = subpackage.HeaderTemplate
+            self.footer_template = subpackage.FooterTemplate
 
-    def __call__(self, *args, **kwargs):
-        return self.generate(*args, **kwargs)
+    def __call__(self): return self.generate()
 
     def generate(self):
         # Main steps #
         self.load_markdown()
         self.make_body()
-        self.make_latex(params=self.params)
+        self.make_latex()
         self.make_pdf()
         # For convenience #
         return self.output_path
@@ -64,12 +72,12 @@ class Document(object):
         return os.path.splitext(self.input_path)[0] + '.pdf'
 
     def load_markdown(self):
-        """Load file in memory and separate the options and body"""
+        """Load file in memory and separate the options and body."""
         # Read the file #
         self.input_path.must_exist()
         self.input = self.input_path.contents_utf8
         # Separate the top params and the rest of the markdown #
-        find_results = re.findall('\A---(.+?)---(.+)', self.input, re.M|re.DOTALL)
+        find_results = re.findall(r'\A---(.+?)---(.+)', self.input, re.M|re.DOTALL)
         # We did not find any parameters #
         if not find_results:
             self.params = {}
@@ -85,15 +93,19 @@ class Document(object):
         kwargs = dict(_in=self.markdown, read='markdown', write='latex')
         self.body = pbs3.Command('pandoc')(**kwargs).stdout
 
+    # Default templates #
+    header_template = pymarktex.templates.sinclair_bio.HeaderTemplate
+    footer_template = pymarktex.templates.sinclair_bio.FooterTemplate
+
     def make_latex(self, params=None, header=None, footer=None):
         """Add the header and footer."""
+        # Copy the options #
         options = self.default_options.copy()
         if params: options.update(params)
-        # Load the right templates #
-        subpackage = importlib.import_module('pymarktex.templates.' + self.builtin_template)
+        if hasattr(self, 'params'): options.update(self.params)
         # Header and Footer #
-        self.header = subpackage.HeaderTemplate(options) if header is None else header
-        self.footer = subpackage.FooterTemplate()        if footer is None else footer
+        self.header = self.header_template(options) if header is None else header
+        self.footer = self.footer_template()        if footer is None else footer
         self.latex = str(self.header) + self.body + str(self.footer)
 
     def make_pdf(self, safe=False, include_src=False):
@@ -144,7 +156,7 @@ class Document(object):
             elif self.tmp_log.exists:
                 print("Here is the tail of the log at '%s':" % self.tmp_log.unix_style)
                 print(self.tmp_log.pretty_tail)
-            print('-'*60)
+            print('-' * 60)
             raise
 
     def copy_to_outbox(self):
@@ -157,36 +169,3 @@ class Document(object):
         if not hasattr(self, 'cache_dir'): raise Exception("No cache directory to purge.")
         self.cache_dir.remove()
         self.cache_dir.create()
-
-###############################################################################
-class Template(object):
-    """The template base class."""
-
-    delimiters     = (u'@@[', u']@@')
-    escape         = lambda s: lambda u: u # Needed otherwise celled with self
-    search_dirs    = None
-    str_encoding   = 'utf8'
-    file_encoding  = 'utf8'
-
-    def __repr__(self): return '<%s object on %s>' % (self.__class__.__name__, self.parent)
-    def __str__(self): return self.render()
-
-    def __init__(self, options=None):
-        self.options = options if options else {}
-
-    def render(self, escape=None, search_dirs=None, delimiters=None, str_encoding=None, file_encoding=None):
-        # Options #
-        delimiters    = self.delimiters    if delimiters is None    else delimiters
-        escape        = self.escape        if escape is None        else escape
-        search_dirs   = self.search_dirs   if search_dirs is None   else search_dirs
-        str_encoding  = self.str_encoding  if str_encoding is None  else str_encoding
-        file_encoding = self.file_encoding if file_encoding is None else file_encoding
-        # The delimiters are in the defaults #
-        pystache.defaults.DELIMITERS = delimiters
-        # Create renderer #
-        renderer = pystache.Renderer(escape          = escape(),
-                                     search_dirs     = search_dirs,
-                                     string_encoding = str_encoding,
-                                     file_encoding   = file_encoding)
-        # Call render #
-        return renderer.render(self)

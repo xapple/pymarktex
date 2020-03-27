@@ -12,5 +12,5 @@ setup(
     author_email     = 'lucas.sinclair@me.com',
     packages         = find_packages(),
     scripts          = ['scripts/pymarktex'],
-    install_requires = ['autopaths', 'plumbing', 'sh', 'pystache'],
+    install_requires = ['autopaths', 'plumbing', 'sh', 'pystache', 'pbs3'],
 )
