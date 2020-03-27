@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 # Special variables #
-__version__ = '1.2.7'
+__version__ = '1.2.8'
 
 # Built-in modules #
 import os, sys, re, shutil, codecs, importlib
