@@ -38,7 +38,7 @@ class Document(object):
         self.input_path = Path(input_path)
         # Output #
         if output_path is None: self.output_path = self.default_output_name
-        else:                   self.output_path = output_path
+        else:                   self.output_path = Path(output_path)
         # Templates builtin #
         if builtin_template:
             subpackage = importlib.import_module('pymarktex.templates.' + builtin_template)
@@ -69,7 +69,7 @@ class Document(object):
 
     @property
     def default_output_name(self):
-        return os.path.splitext(self.input_path)[0] + '.pdf'
+        return Path(os.path.splitext(self.input_path)[0] + '.pdf')
 
     def load_markdown(self):
         """Load file in memory and separate the options and body."""
