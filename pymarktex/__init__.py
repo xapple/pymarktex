@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 # Special variables #
-__version__ = '1.3.1'
+__version__ = '1.3.2'
 
 # Built-in modules #
 import os, sys, re, shutil, codecs, importlib
@@ -37,7 +37,7 @@ class Document(object):
         # Input #
         self.input_path = Path(input_path)
         # Output #
-        if output_path is None: self.output_path = self.default_output_name
+        if output_path is None: self.output_path = Path(self.default_output_name)
         else:                   self.output_path = Path(output_path)
         # Templates builtin #
         if builtin_template:
