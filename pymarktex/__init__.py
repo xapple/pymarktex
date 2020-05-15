@@ -14,9 +14,6 @@ import pymarktex.templates.sinclair_bio
 from autopaths import Path
 from autopaths.tmp_path import new_temp_dir
 
-# Third party modules #
-import pbs3
-
 # Get paths to module #
 self       = sys.modules[__name__]
 module_dir = Path(os.path.dirname(self.__file__))
@@ -132,16 +129,22 @@ class Document(object):
 
     def call_xelatex(self, safe=False):
         """
-        Here we use the `pbs3` library under Windows and the sh` library under Unix.
-        There is a cross-compatible library called `plumbum` but has an awkward syntax:
+        Here we use the `pbs3` library which works under Windows and Unix.
+        while the `sh` library would work only under Unix.
+        There is a cross-compatible library called `plumbum` but
+        it has an awkward syntax:
 
             cmd = plumbum.local['xelatex']
             ((cmd > self.tmp_stderr) >= self.tmp_stdout)()
 
         See https://github.com/tomerfiliba/plumbum/issues/441
         """
+        # Import #
+        import pbs3
+        # Different command on different platforms #
         if os.name == "posix":  cmd = pbs3.Command('xelatex')
         if os.name == "nt":     cmd = pbs3.Command('xelatex.exe')
+        # Test #
         try:
             cmd(*self.cmd_params,
                 _ok_code=[0] if not safe else [0,1],
