@@ -13,4 +13,5 @@ setup(
     packages         = find_packages(),
     scripts          = ['scripts/pymarktex'],
     install_requires = ['autopaths>=1.3.8', 'plumbing>=2.7.3', 'pystache>=0.5.4'],
+    include_package_data = True,
 )
