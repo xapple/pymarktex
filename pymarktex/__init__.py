@@ -87,6 +87,7 @@ class Document(object):
 
     def make_body(self):
         """Convert the body to LaTeX."""
+        import pbs3
         kwargs = dict(_in=self.markdown, read='markdown', write='latex')
         self.body = pbs3.Command('pandoc')(**kwargs).stdout
 
