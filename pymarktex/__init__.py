@@ -36,7 +36,7 @@ class Document(object):
         # Output #
         if output_path is None: self.output_path = Path(self.default_output_name)
         else:                   self.output_path = Path(output_path)
-        # Templates builtin #
+        # Templates built-in #
         if builtin_template:
             subpackage = importlib.import_module('pymarktex.templates.' + builtin_template)
             self.header_template = subpackage.HeaderTemplate
