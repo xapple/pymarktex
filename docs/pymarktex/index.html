@@ -30,7 +30,7 @@
 # -*- coding: utf-8 -*-
 
 # Special variables #
-__version__ = &#39;1.3.9&#39;
+__version__ = &#39;1.4.0&#39;
 
 # Built-in modules #
 import os, sys, re, shutil, codecs, importlib
@@ -64,7 +64,7 @@ class Document(object):
         # Output #
         if output_path is None: self.output_path = Path(self.default_output_name)
         else:                   self.output_path = Path(output_path)
-        # Templates builtin #
+        # Templates built-in #
         if builtin_template:
             subpackage = importlib.import_module(&#39;pymarktex.templates.&#39; + builtin_template)
             self.header_template = subpackage.HeaderTemplate
@@ -248,7 +248,7 @@ class Document(object):
         # Output #
         if output_path is None: self.output_path = Path(self.default_output_name)
         else:                   self.output_path = Path(output_path)
-        # Templates builtin #
+        # Templates built-in #
         if builtin_template:
             subpackage = importlib.import_module(&#39;pymarktex.templates.&#39; + builtin_template)
             self.header_template = subpackage.HeaderTemplate
