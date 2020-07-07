@@ -1,5 +1,4 @@
 [![PyPI version](https://badge.fury.io/py/pymarktex.svg)](https://badge.fury.io/py/pymarktex)
-[![changelog](http://allmychanges.com/p/python/pymarktex/badge/)](http://allmychanges.com/p/python/pymarktex/?utm_source=badge) 
 
 # `pymarktex` version 1.3.9
 
@@ -27,6 +26,12 @@ And it will generate the corresponding `lorem.pdf` file in the same directory.
 
 Then, change the install directory to something like: `~/programs/textlive/2014`
 
-### Code documentation
+# Extra documentation 
+
 More documentation is available at:
-http://xapple.github.io/pymarktex/
+
+<http://xapple.github.io/pymarktex/pymarktex>
+
+This documentation is simply generated with:
+
+    $ pdoc --html --output-dir docs --force pymarktex
