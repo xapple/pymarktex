@@ -10,7 +10,7 @@ setup(
     author_email     = 'lucas.sinclair@me.com',
     packages         = find_packages(),
     scripts          = ['scripts/pymarktex'],
-    install_requires = ['plumbing>=2.8.0', 'autopaths>=1.4.1', 'pystache>=0.5.4'],
+    install_requires = ['plumbing>=2.8.1', 'autopaths>=1.4.2', 'pystache>=0.5.4'],
     long_description = open('README.md').read(),
     long_description_content_type = 'text/markdown',
     include_package_data = True,
