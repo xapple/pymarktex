@@ -1,0 +1,680 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
+<meta name="generator" content="pdoc 0.8.3" />
+<title>pymarktex API documentation</title>
+<meta name="description" content="" />
+<link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/sanitize.min.css" integrity="sha256-PK9q560IAAa6WVRRh76LtCaI8pjTJ2z11v0miyNNjrs=" crossorigin>
+<link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/typography.min.css" integrity="sha256-7l/o7C8jubJiy74VsKTidCy1yBkRtiUGbVkYBylBqUg=" crossorigin>
+<link rel="stylesheet preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/styles/github.min.css" crossorigin>
+<style>:root{--highlight-color:#fe9}.flex{display:flex !important}body{line-height:1.5em}#content{padding:20px}#sidebar{padding:30px;overflow:hidden}#sidebar > *:last-child{margin-bottom:2cm}.http-server-breadcrumbs{font-size:130%;margin:0 0 15px 0}#footer{font-size:.75em;padding:5px 30px;border-top:1px solid #ddd;text-align:right}#footer p{margin:0 0 0 1em;display:inline-block}#footer p:last-child{margin-right:30px}h1,h2,h3,h4,h5{font-weight:300}h1{font-size:2.5em;line-height:1.1em}h2{font-size:1.75em;margin:1em 0 .50em 0}h3{font-size:1.4em;margin:25px 0 10px 0}h4{margin:0;font-size:105%}h1:target,h2:target,h3:target,h4:target,h5:target,h6:target{background:var(--highlight-color);padding:.2em 0}a{color:#058;text-decoration:none;transition:color .3s ease-in-out}a:hover{color:#e82}.title code{font-weight:bold}h2[id^="header-"]{margin-top:2em}.ident{color:#900}pre code{background:#f8f8f8;font-size:.8em;line-height:1.4em}code{background:#f2f2f1;padding:1px 4px;overflow-wrap:break-word}h1 code{background:transparent}pre{background:#f8f8f8;border:0;border-top:1px solid #ccc;border-bottom:1px solid #ccc;margin:1em 0;padding:1ex}#http-server-module-list{display:flex;flex-flow:column}#http-server-module-list div{display:flex}#http-server-module-list dt{min-width:10%}#http-server-module-list p{margin-top:0}.toc ul,#index{list-style-type:none;margin:0;padding:0}#index code{background:transparent}#index h3{border-bottom:1px solid #ddd}#index ul{padding:0}#index h4{margin-top:.6em;font-weight:bold}@media (min-width:200ex){#index .two-column{column-count:2}}@media (min-width:300ex){#index .two-column{column-count:3}}dl{margin-bottom:2em}dl dl:last-child{margin-bottom:4em}dd{margin:0 0 1em 3em}#header-classes + dl > dd{margin-bottom:3em}dd dd{margin-left:2em}dd p{margin:10px 0}.name{background:#eee;font-weight:bold;font-size:.85em;padding:5px 10px;display:inline-block;min-width:40%}.name:hover{background:#e0e0e0}dt:target .name{background:var(--highlight-color)}.name > span:first-child{white-space:nowrap}.name.class > span:nth-child(2){margin-left:.4em}.inherited{color:#999;border-left:5px solid #eee;padding-left:1em}.inheritance em{font-style:normal;font-weight:bold}.desc h2{font-weight:400;font-size:1.25em}.desc h3{font-size:1em}.desc dt code{background:inherit}.source summary,.git-link-div{color:#666;text-align:right;font-weight:400;font-size:.8em;text-transform:uppercase}.source summary > *{white-space:nowrap;cursor:pointer}.git-link{color:inherit;margin-left:1em}.source pre{max-height:500px;overflow:auto;margin:0}.source pre code{font-size:12px;overflow:visible}.hlist{list-style:none}.hlist li{display:inline}.hlist li:after{content:',\2002'}.hlist li:last-child:after{content:none}.hlist .hlist{display:inline;padding-left:1em}img{max-width:100%}td{padding:0 .5em}.admonition{padding:.1em .5em;margin-bottom:1em}.admonition-title{font-weight:bold}.admonition.note,.admonition.info,.admonition.important{background:#aef}.admonition.todo,.admonition.versionadded,.admonition.tip,.admonition.hint{background:#dfd}.admonition.warning,.admonition.versionchanged,.admonition.deprecated{background:#fd4}.admonition.error,.admonition.danger,.admonition.caution{background:lightpink}</style>
+<style media="screen and (min-width: 700px)">@media screen and (min-width:700px){#sidebar{width:30%;height:100vh;overflow:auto;position:sticky;top:0}#content{width:70%;max-width:100ch;padding:3em 4em;border-left:1px solid #ddd}pre code{font-size:1em}.item .name{font-size:1em}main{display:flex;flex-direction:row-reverse;justify-content:flex-end}.toc ul ul,#index ul{padding-left:1.5em}.toc > ul > li{margin-top:.5em}}</style>
+<style media="print">@media print{#sidebar h1{page-break-before:always}.source{display:none}}@media print{*{background:transparent !important;color:#000 !important;box-shadow:none !important;text-shadow:none !important}a[href]:after{content:" (" attr(href) ")";font-size:90%}a[href][title]:after{content:none}abbr[title]:after{content:" (" attr(title) ")"}.ir a:after,a[href^="javascript:"]:after,a[href^="#"]:after{content:""}pre,blockquote{border:1px solid #999;page-break-inside:avoid}thead{display:table-header-group}tr,img{page-break-inside:avoid}img{max-width:100% !important}@page{margin:0.5cm}p,h2,h3{orphans:3;widows:3}h1,h2,h3,h4,h5,h6{page-break-after:avoid}}</style>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/highlight.min.js" integrity="sha256-eOgo0OtLL4cdq7RdwRUiGKLX9XsIJ7nGhWEKbohmVAQ=" crossorigin></script>
+<script>window.addEventListener('DOMContentLoaded', () => hljs.initHighlighting())</script>
+</head>
+<body>
+<main>
+<article id="content">
+<header>
+<h1 class="title">Package <code>pymarktex</code></h1>
+</header>
+<section id="section-intro">
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+
+# Special variables #
+__version__ = &#39;1.3.9&#39;
+
+# Built-in modules #
+import os, sys, re, shutil, codecs, importlib
+
+# Internal modules #
+import pymarktex.templates.sinclair_bio
+
+# First party modules #
+from autopaths import Path
+from autopaths.tmp_path import new_temp_dir
+
+# Get paths to module #
+self       = sys.modules[__name__]
+module_dir = Path(os.path.dirname(self.__file__))
+
+# The repository directory #
+repos_dir = module_dir.directory
+
+# Various paths #
+logo_dir = repos_dir + &#39;logos/&#39;
+
+###############################################################################
+class Document(object):
+    &#34;&#34;&#34;The main object is the document to be generated from markdown text.&#34;&#34;&#34;
+
+    def __repr__(self): return &#39;&lt;%s object on %s&gt;&#39; % (self.__class__.__name__, self.parent)
+
+    def __init__(self, input_path, output_path=None, builtin_template=None):
+        # Input #
+        self.input_path = Path(input_path)
+        # Output #
+        if output_path is None: self.output_path = Path(self.default_output_name)
+        else:                   self.output_path = Path(output_path)
+        # Templates builtin #
+        if builtin_template:
+            subpackage = importlib.import_module(&#39;pymarktex.templates.&#39; + builtin_template)
+            self.header_template = subpackage.HeaderTemplate
+            self.footer_template = subpackage.FooterTemplate
+
+    def __call__(self): return self.generate()
+
+    def generate(self):
+        # Main steps #
+        self.load_markdown()
+        self.make_body()
+        self.make_latex()
+        self.make_pdf()
+        # For convenience #
+        return self.output_path
+
+    @property
+    def default_options(self):
+        return {
+            &#39;name&#39;:        os.environ.get(&#39;USER_FULL_NAME&#39;),
+            &#39;status&#39;:      os.environ.get(&#39;USER_STATUS&#39;),
+            &#39;company&#39;:     os.environ.get(&#39;USER_COMPANY&#39;),
+            &#39;subcompany&#39;:  os.environ.get(&#39;USER_SUBCOMPANY&#39;),
+            &#39;title&#39;:       &#34;Auto-generated report&#34;,
+            &#39;image_path&#39;:  logo_dir + &#39;logo.png&#39;,
+        }
+
+    @property
+    def default_output_name(self):
+        return Path(os.path.splitext(self.input_path)[0] + &#39;.pdf&#39;)
+
+    def load_markdown(self):
+        &#34;&#34;&#34;Load file in memory and separate the options and body.&#34;&#34;&#34;
+        # Read the file #
+        self.input_path.must_exist()
+        self.input = self.input_path.contents_utf8
+        # Separate the top params and the rest of the markdown #
+        find_results = re.findall(r&#39;\A---(.+?)---(.+)&#39;, self.input, re.M|re.DOTALL)
+        # We did not find any parameters #
+        if not find_results:
+            self.params = {}
+            self.markdown = self.input
+            return
+        # We did find a set of parameters #
+        self.params, self.markdown = find_results[0]
+        self.params = [i.partition(&#39;:&#39;)[::2] for i in self.params.strip().split(&#39;\n&#39;)]
+        self.params = dict([(k.strip(),v.strip()) for k,v in self.params])
+
+    def make_body(self):
+        &#34;&#34;&#34;Convert the body to LaTeX.&#34;&#34;&#34;
+        import pbs3
+        kwargs = dict(_in=self.markdown, read=&#39;markdown&#39;, write=&#39;latex&#39;)
+        self.body = pbs3.Command(&#39;pandoc&#39;)(**kwargs).stdout
+
+    # Default templates #
+    header_template = pymarktex.templates.sinclair_bio.HeaderTemplate
+    footer_template = pymarktex.templates.sinclair_bio.FooterTemplate
+
+    def make_latex(self, params=None, header=None, footer=None):
+        &#34;&#34;&#34;Add the header and footer.&#34;&#34;&#34;
+        # Copy the options #
+        options = self.default_options.copy()
+        if params: options.update(params)
+        if hasattr(self, &#39;params&#39;): options.update(self.params)
+        # Header and Footer #
+        self.header = self.header_template(options) if header is None else header
+        self.footer = self.footer_template()        if footer is None else footer
+        self.latex = str(self.header) + self.body + str(self.footer)
+
+    def make_pdf(self, safe=False, include_src=False):
+        &#34;&#34;&#34;Call XeLaTeX (twice for cross-referencing)&#34;&#34;&#34;
+        # Paths #
+        self.tmp_dir    = new_temp_dir()
+        self.tmp_path   = Path(self.tmp_dir + &#39;main.tex&#39;)
+        self.tmp_stdout = Path(self.tmp_dir + &#39;stdout.txt&#39;)
+        self.tmp_stderr = Path(self.tmp_dir + &#39;stderr.txt&#39;)
+        self.tmp_log    = Path(self.tmp_dir + &#39;main.log&#39;)
+        # Prepare #
+        with codecs.open(self.tmp_path, &#39;w&#39;, encoding=&#39;utf8&#39;) as handle: handle.write(self.latex)
+        self.cmd_params  = [&#34;--interaction=nonstopmode&#34;, &#39;-output-directory&#39;]
+        self.cmd_params += [self.tmp_dir, self.tmp_path]
+        # Call twice for references #
+        self.call_xelatex(safe)
+        self.call_xelatex(safe)
+        # Check output directory exists #
+        self.output_path.directory.create_if_not_exists()
+        # Move into place #
+        shutil.move(self.tmp_dir + &#39;main.pdf&#39;, self.output_path)
+        # Show the latex source #
+        if include_src: self.output_path.replace_extension(&#39;tex&#39;).write(self.latex, encoding=&#39;utf-8&#39;)
+
+    def call_xelatex(self, safe=False):
+        &#34;&#34;&#34;
+        Here we use the `pbs3` library which works under Windows and Unix.
+        while the `sh` library would work only under Unix.
+        There is a cross-compatible library called `plumbum` but
+        it has an awkward syntax:
+
+            cmd = plumbum.local[&#39;xelatex&#39;]
+            ((cmd &gt; self.tmp_stderr) &gt;= self.tmp_stdout)()
+
+        See https://github.com/tomerfiliba/plumbum/issues/441
+        &#34;&#34;&#34;
+        # Import #
+        import pbs3
+        # Different command on different platforms #
+        if os.name == &#34;posix&#34;:  cmd = pbs3.Command(&#39;xelatex&#39;)
+        if os.name == &#34;nt&#34;:     cmd = pbs3.Command(&#39;xelatex.exe&#39;)
+        # Test #
+        try:
+            cmd(*self.cmd_params,
+                _ok_code=[0] if not safe else [0,1],
+                _err=str(self.tmp_stderr),
+                _out=str(self.tmp_stdout))
+        except pbs3.ErrorReturnCode_1:
+            print(&#39;-&#39; * 60)
+            print(&#34;Xelatex exited with return code 1.&#34;)
+            if self.tmp_stdout.exists:
+                print(&#34;Here is the tail of the stdout at &#39;%s&#39;:&#34; % self.tmp_stdout.unix_style)
+                print(self.tmp_stdout.pretty_tail)
+            elif self.tmp_log.exists:
+                print(&#34;Here is the tail of the log at &#39;%s&#39;:&#34; % self.tmp_log.unix_style)
+                print(self.tmp_log.pretty_tail)
+            print(&#39;-&#39; * 60)
+            raise
+
+    def copy_to_outbox(self):
+        &#34;&#34;&#34;Copy the report to the outbox directory where it can be viewed by anyone.&#34;&#34;&#34;
+        self.outbox.directory.create(safe=True)
+        shutil.copy(self.output_path, self.outbox)
+
+    def purge_cache(self):
+        &#34;&#34;&#34;Some reports used pickled properties to avoid recalculations.&#34;&#34;&#34;
+        if not hasattr(self, &#39;cache_dir&#39;): raise Exception(&#34;No cache directory to purge.&#34;)
+        self.cache_dir.remove()
+        self.cache_dir.create()</code></pre>
+</details>
+</section>
+<section>
+<h2 class="section-title" id="header-submodules">Sub-modules</h2>
+<dl>
+<dt><code class="name"><a title="pymarktex.figures" href="figures/index.html">pymarktex.figures</a></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt><code class="name"><a title="pymarktex.tables" href="tables/index.html">pymarktex.tables</a></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt><code class="name"><a title="pymarktex.templates" href="templates/index.html">pymarktex.templates</a></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+</dl>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+<h2 class="section-title" id="header-classes">Classes</h2>
+<dl>
+<dt id="pymarktex.Document"><code class="flex name class">
+<span>class <span class="ident">Document</span></span>
+<span>(</span><span>input_path, output_path=None, builtin_template=None)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>The main object is the document to be generated from markdown text.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class Document(object):
+    &#34;&#34;&#34;The main object is the document to be generated from markdown text.&#34;&#34;&#34;
+
+    def __repr__(self): return &#39;&lt;%s object on %s&gt;&#39; % (self.__class__.__name__, self.parent)
+
+    def __init__(self, input_path, output_path=None, builtin_template=None):
+        # Input #
+        self.input_path = Path(input_path)
+        # Output #
+        if output_path is None: self.output_path = Path(self.default_output_name)
+        else:                   self.output_path = Path(output_path)
+        # Templates builtin #
+        if builtin_template:
+            subpackage = importlib.import_module(&#39;pymarktex.templates.&#39; + builtin_template)
+            self.header_template = subpackage.HeaderTemplate
+            self.footer_template = subpackage.FooterTemplate
+
+    def __call__(self): return self.generate()
+
+    def generate(self):
+        # Main steps #
+        self.load_markdown()
+        self.make_body()
+        self.make_latex()
+        self.make_pdf()
+        # For convenience #
+        return self.output_path
+
+    @property
+    def default_options(self):
+        return {
+            &#39;name&#39;:        os.environ.get(&#39;USER_FULL_NAME&#39;),
+            &#39;status&#39;:      os.environ.get(&#39;USER_STATUS&#39;),
+            &#39;company&#39;:     os.environ.get(&#39;USER_COMPANY&#39;),
+            &#39;subcompany&#39;:  os.environ.get(&#39;USER_SUBCOMPANY&#39;),
+            &#39;title&#39;:       &#34;Auto-generated report&#34;,
+            &#39;image_path&#39;:  logo_dir + &#39;logo.png&#39;,
+        }
+
+    @property
+    def default_output_name(self):
+        return Path(os.path.splitext(self.input_path)[0] + &#39;.pdf&#39;)
+
+    def load_markdown(self):
+        &#34;&#34;&#34;Load file in memory and separate the options and body.&#34;&#34;&#34;
+        # Read the file #
+        self.input_path.must_exist()
+        self.input = self.input_path.contents_utf8
+        # Separate the top params and the rest of the markdown #
+        find_results = re.findall(r&#39;\A---(.+?)---(.+)&#39;, self.input, re.M|re.DOTALL)
+        # We did not find any parameters #
+        if not find_results:
+            self.params = {}
+            self.markdown = self.input
+            return
+        # We did find a set of parameters #
+        self.params, self.markdown = find_results[0]
+        self.params = [i.partition(&#39;:&#39;)[::2] for i in self.params.strip().split(&#39;\n&#39;)]
+        self.params = dict([(k.strip(),v.strip()) for k,v in self.params])
+
+    def make_body(self):
+        &#34;&#34;&#34;Convert the body to LaTeX.&#34;&#34;&#34;
+        import pbs3
+        kwargs = dict(_in=self.markdown, read=&#39;markdown&#39;, write=&#39;latex&#39;)
+        self.body = pbs3.Command(&#39;pandoc&#39;)(**kwargs).stdout
+
+    # Default templates #
+    header_template = pymarktex.templates.sinclair_bio.HeaderTemplate
+    footer_template = pymarktex.templates.sinclair_bio.FooterTemplate
+
+    def make_latex(self, params=None, header=None, footer=None):
+        &#34;&#34;&#34;Add the header and footer.&#34;&#34;&#34;
+        # Copy the options #
+        options = self.default_options.copy()
+        if params: options.update(params)
+        if hasattr(self, &#39;params&#39;): options.update(self.params)
+        # Header and Footer #
+        self.header = self.header_template(options) if header is None else header
+        self.footer = self.footer_template()        if footer is None else footer
+        self.latex = str(self.header) + self.body + str(self.footer)
+
+    def make_pdf(self, safe=False, include_src=False):
+        &#34;&#34;&#34;Call XeLaTeX (twice for cross-referencing)&#34;&#34;&#34;
+        # Paths #
+        self.tmp_dir    = new_temp_dir()
+        self.tmp_path   = Path(self.tmp_dir + &#39;main.tex&#39;)
+        self.tmp_stdout = Path(self.tmp_dir + &#39;stdout.txt&#39;)
+        self.tmp_stderr = Path(self.tmp_dir + &#39;stderr.txt&#39;)
+        self.tmp_log    = Path(self.tmp_dir + &#39;main.log&#39;)
+        # Prepare #
+        with codecs.open(self.tmp_path, &#39;w&#39;, encoding=&#39;utf8&#39;) as handle: handle.write(self.latex)
+        self.cmd_params  = [&#34;--interaction=nonstopmode&#34;, &#39;-output-directory&#39;]
+        self.cmd_params += [self.tmp_dir, self.tmp_path]
+        # Call twice for references #
+        self.call_xelatex(safe)
+        self.call_xelatex(safe)
+        # Check output directory exists #
+        self.output_path.directory.create_if_not_exists()
+        # Move into place #
+        shutil.move(self.tmp_dir + &#39;main.pdf&#39;, self.output_path)
+        # Show the latex source #
+        if include_src: self.output_path.replace_extension(&#39;tex&#39;).write(self.latex, encoding=&#39;utf-8&#39;)
+
+    def call_xelatex(self, safe=False):
+        &#34;&#34;&#34;
+        Here we use the `pbs3` library which works under Windows and Unix.
+        while the `sh` library would work only under Unix.
+        There is a cross-compatible library called `plumbum` but
+        it has an awkward syntax:
+
+            cmd = plumbum.local[&#39;xelatex&#39;]
+            ((cmd &gt; self.tmp_stderr) &gt;= self.tmp_stdout)()
+
+        See https://github.com/tomerfiliba/plumbum/issues/441
+        &#34;&#34;&#34;
+        # Import #
+        import pbs3
+        # Different command on different platforms #
+        if os.name == &#34;posix&#34;:  cmd = pbs3.Command(&#39;xelatex&#39;)
+        if os.name == &#34;nt&#34;:     cmd = pbs3.Command(&#39;xelatex.exe&#39;)
+        # Test #
+        try:
+            cmd(*self.cmd_params,
+                _ok_code=[0] if not safe else [0,1],
+                _err=str(self.tmp_stderr),
+                _out=str(self.tmp_stdout))
+        except pbs3.ErrorReturnCode_1:
+            print(&#39;-&#39; * 60)
+            print(&#34;Xelatex exited with return code 1.&#34;)
+            if self.tmp_stdout.exists:
+                print(&#34;Here is the tail of the stdout at &#39;%s&#39;:&#34; % self.tmp_stdout.unix_style)
+                print(self.tmp_stdout.pretty_tail)
+            elif self.tmp_log.exists:
+                print(&#34;Here is the tail of the log at &#39;%s&#39;:&#34; % self.tmp_log.unix_style)
+                print(self.tmp_log.pretty_tail)
+            print(&#39;-&#39; * 60)
+            raise
+
+    def copy_to_outbox(self):
+        &#34;&#34;&#34;Copy the report to the outbox directory where it can be viewed by anyone.&#34;&#34;&#34;
+        self.outbox.directory.create(safe=True)
+        shutil.copy(self.output_path, self.outbox)
+
+    def purge_cache(self):
+        &#34;&#34;&#34;Some reports used pickled properties to avoid recalculations.&#34;&#34;&#34;
+        if not hasattr(self, &#39;cache_dir&#39;): raise Exception(&#34;No cache directory to purge.&#34;)
+        self.cache_dir.remove()
+        self.cache_dir.create()</code></pre>
+</details>
+<h3>Class variables</h3>
+<dl>
+<dt id="pymarktex.Document.footer_template"><code class="name">var <span class="ident">footer_template</span></code></dt>
+<dd>
+<div class="desc"><p>All the parameters to be rendered in the LaTeX footer template</p></div>
+</dd>
+<dt id="pymarktex.Document.header_template"><code class="name">var <span class="ident">header_template</span></code></dt>
+<dd>
+<div class="desc"><p>All the parameters to be rendered in the LaTeX header template</p></div>
+</dd>
+</dl>
+<h3>Instance variables</h3>
+<dl>
+<dt id="pymarktex.Document.default_options"><code class="name">var <span class="ident">default_options</span></code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def default_options(self):
+    return {
+        &#39;name&#39;:        os.environ.get(&#39;USER_FULL_NAME&#39;),
+        &#39;status&#39;:      os.environ.get(&#39;USER_STATUS&#39;),
+        &#39;company&#39;:     os.environ.get(&#39;USER_COMPANY&#39;),
+        &#39;subcompany&#39;:  os.environ.get(&#39;USER_SUBCOMPANY&#39;),
+        &#39;title&#39;:       &#34;Auto-generated report&#34;,
+        &#39;image_path&#39;:  logo_dir + &#39;logo.png&#39;,
+    }</code></pre>
+</details>
+</dd>
+<dt id="pymarktex.Document.default_output_name"><code class="name">var <span class="ident">default_output_name</span></code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def default_output_name(self):
+    return Path(os.path.splitext(self.input_path)[0] + &#39;.pdf&#39;)</code></pre>
+</details>
+</dd>
+</dl>
+<h3>Methods</h3>
+<dl>
+<dt id="pymarktex.Document.call_xelatex"><code class="name flex">
+<span>def <span class="ident">call_xelatex</span></span>(<span>self, safe=False)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Here we use the <code>pbs3</code> library which works under Windows and Unix.
+while the <code>sh</code> library would work only under Unix.
+There is a cross-compatible library called <code>plumbum</code> but
+it has an awkward syntax:</p>
+<pre><code>cmd = plumbum.local['xelatex']
+((cmd &gt; self.tmp_stderr) &gt;= self.tmp_stdout)()
+</code></pre>
+<p>See <a href="https://github.com/tomerfiliba/plumbum/issues/441">https://github.com/tomerfiliba/plumbum/issues/441</a></p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def call_xelatex(self, safe=False):
+    &#34;&#34;&#34;
+    Here we use the `pbs3` library which works under Windows and Unix.
+    while the `sh` library would work only under Unix.
+    There is a cross-compatible library called `plumbum` but
+    it has an awkward syntax:
+
+        cmd = plumbum.local[&#39;xelatex&#39;]
+        ((cmd &gt; self.tmp_stderr) &gt;= self.tmp_stdout)()
+
+    See https://github.com/tomerfiliba/plumbum/issues/441
+    &#34;&#34;&#34;
+    # Import #
+    import pbs3
+    # Different command on different platforms #
+    if os.name == &#34;posix&#34;:  cmd = pbs3.Command(&#39;xelatex&#39;)
+    if os.name == &#34;nt&#34;:     cmd = pbs3.Command(&#39;xelatex.exe&#39;)
+    # Test #
+    try:
+        cmd(*self.cmd_params,
+            _ok_code=[0] if not safe else [0,1],
+            _err=str(self.tmp_stderr),
+            _out=str(self.tmp_stdout))
+    except pbs3.ErrorReturnCode_1:
+        print(&#39;-&#39; * 60)
+        print(&#34;Xelatex exited with return code 1.&#34;)
+        if self.tmp_stdout.exists:
+            print(&#34;Here is the tail of the stdout at &#39;%s&#39;:&#34; % self.tmp_stdout.unix_style)
+            print(self.tmp_stdout.pretty_tail)
+        elif self.tmp_log.exists:
+            print(&#34;Here is the tail of the log at &#39;%s&#39;:&#34; % self.tmp_log.unix_style)
+            print(self.tmp_log.pretty_tail)
+        print(&#39;-&#39; * 60)
+        raise</code></pre>
+</details>
+</dd>
+<dt id="pymarktex.Document.copy_to_outbox"><code class="name flex">
+<span>def <span class="ident">copy_to_outbox</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Copy the report to the outbox directory where it can be viewed by anyone.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def copy_to_outbox(self):
+    &#34;&#34;&#34;Copy the report to the outbox directory where it can be viewed by anyone.&#34;&#34;&#34;
+    self.outbox.directory.create(safe=True)
+    shutil.copy(self.output_path, self.outbox)</code></pre>
+</details>
+</dd>
+<dt id="pymarktex.Document.generate"><code class="name flex">
+<span>def <span class="ident">generate</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def generate(self):
+    # Main steps #
+    self.load_markdown()
+    self.make_body()
+    self.make_latex()
+    self.make_pdf()
+    # For convenience #
+    return self.output_path</code></pre>
+</details>
+</dd>
+<dt id="pymarktex.Document.load_markdown"><code class="name flex">
+<span>def <span class="ident">load_markdown</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Load file in memory and separate the options and body.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def load_markdown(self):
+    &#34;&#34;&#34;Load file in memory and separate the options and body.&#34;&#34;&#34;
+    # Read the file #
+    self.input_path.must_exist()
+    self.input = self.input_path.contents_utf8
+    # Separate the top params and the rest of the markdown #
+    find_results = re.findall(r&#39;\A---(.+?)---(.+)&#39;, self.input, re.M|re.DOTALL)
+    # We did not find any parameters #
+    if not find_results:
+        self.params = {}
+        self.markdown = self.input
+        return
+    # We did find a set of parameters #
+    self.params, self.markdown = find_results[0]
+    self.params = [i.partition(&#39;:&#39;)[::2] for i in self.params.strip().split(&#39;\n&#39;)]
+    self.params = dict([(k.strip(),v.strip()) for k,v in self.params])</code></pre>
+</details>
+</dd>
+<dt id="pymarktex.Document.make_body"><code class="name flex">
+<span>def <span class="ident">make_body</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Convert the body to LaTeX.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def make_body(self):
+    &#34;&#34;&#34;Convert the body to LaTeX.&#34;&#34;&#34;
+    import pbs3
+    kwargs = dict(_in=self.markdown, read=&#39;markdown&#39;, write=&#39;latex&#39;)
+    self.body = pbs3.Command(&#39;pandoc&#39;)(**kwargs).stdout</code></pre>
+</details>
+</dd>
+<dt id="pymarktex.Document.make_latex"><code class="name flex">
+<span>def <span class="ident">make_latex</span></span>(<span>self, params=None, header=None, footer=None)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Add the header and footer.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def make_latex(self, params=None, header=None, footer=None):
+    &#34;&#34;&#34;Add the header and footer.&#34;&#34;&#34;
+    # Copy the options #
+    options = self.default_options.copy()
+    if params: options.update(params)
+    if hasattr(self, &#39;params&#39;): options.update(self.params)
+    # Header and Footer #
+    self.header = self.header_template(options) if header is None else header
+    self.footer = self.footer_template()        if footer is None else footer
+    self.latex = str(self.header) + self.body + str(self.footer)</code></pre>
+</details>
+</dd>
+<dt id="pymarktex.Document.make_pdf"><code class="name flex">
+<span>def <span class="ident">make_pdf</span></span>(<span>self, safe=False, include_src=False)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Call XeLaTeX (twice for cross-referencing)</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def make_pdf(self, safe=False, include_src=False):
+    &#34;&#34;&#34;Call XeLaTeX (twice for cross-referencing)&#34;&#34;&#34;
+    # Paths #
+    self.tmp_dir    = new_temp_dir()
+    self.tmp_path   = Path(self.tmp_dir + &#39;main.tex&#39;)
+    self.tmp_stdout = Path(self.tmp_dir + &#39;stdout.txt&#39;)
+    self.tmp_stderr = Path(self.tmp_dir + &#39;stderr.txt&#39;)
+    self.tmp_log    = Path(self.tmp_dir + &#39;main.log&#39;)
+    # Prepare #
+    with codecs.open(self.tmp_path, &#39;w&#39;, encoding=&#39;utf8&#39;) as handle: handle.write(self.latex)
+    self.cmd_params  = [&#34;--interaction=nonstopmode&#34;, &#39;-output-directory&#39;]
+    self.cmd_params += [self.tmp_dir, self.tmp_path]
+    # Call twice for references #
+    self.call_xelatex(safe)
+    self.call_xelatex(safe)
+    # Check output directory exists #
+    self.output_path.directory.create_if_not_exists()
+    # Move into place #
+    shutil.move(self.tmp_dir + &#39;main.pdf&#39;, self.output_path)
+    # Show the latex source #
+    if include_src: self.output_path.replace_extension(&#39;tex&#39;).write(self.latex, encoding=&#39;utf-8&#39;)</code></pre>
+</details>
+</dd>
+<dt id="pymarktex.Document.purge_cache"><code class="name flex">
+<span>def <span class="ident">purge_cache</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Some reports used pickled properties to avoid recalculations.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def purge_cache(self):
+    &#34;&#34;&#34;Some reports used pickled properties to avoid recalculations.&#34;&#34;&#34;
+    if not hasattr(self, &#39;cache_dir&#39;): raise Exception(&#34;No cache directory to purge.&#34;)
+    self.cache_dir.remove()
+    self.cache_dir.create()</code></pre>
+</details>
+</dd>
+</dl>
+</dd>
+</dl>
+</section>
+</article>
+<nav id="sidebar">
+<h1>Index</h1>
+<div class="toc">
+<ul></ul>
+</div>
+<ul id="index">
+<li><h3><a href="#header-submodules">Sub-modules</a></h3>
+<ul>
+<li><code><a title="pymarktex.figures" href="figures/index.html">pymarktex.figures</a></code></li>
+<li><code><a title="pymarktex.tables" href="tables/index.html">pymarktex.tables</a></code></li>
+<li><code><a title="pymarktex.templates" href="templates/index.html">pymarktex.templates</a></code></li>
+</ul>
+</li>
+<li><h3><a href="#header-classes">Classes</a></h3>
+<ul>
+<li>
+<h4><code><a title="pymarktex.Document" href="#pymarktex.Document">Document</a></code></h4>
+<ul class="two-column">
+<li><code><a title="pymarktex.Document.call_xelatex" href="#pymarktex.Document.call_xelatex">call_xelatex</a></code></li>
+<li><code><a title="pymarktex.Document.copy_to_outbox" href="#pymarktex.Document.copy_to_outbox">copy_to_outbox</a></code></li>
+<li><code><a title="pymarktex.Document.default_options" href="#pymarktex.Document.default_options">default_options</a></code></li>
+<li><code><a title="pymarktex.Document.default_output_name" href="#pymarktex.Document.default_output_name">default_output_name</a></code></li>
+<li><code><a title="pymarktex.Document.footer_template" href="#pymarktex.Document.footer_template">footer_template</a></code></li>
+<li><code><a title="pymarktex.Document.generate" href="#pymarktex.Document.generate">generate</a></code></li>
+<li><code><a title="pymarktex.Document.header_template" href="#pymarktex.Document.header_template">header_template</a></code></li>
+<li><code><a title="pymarktex.Document.load_markdown" href="#pymarktex.Document.load_markdown">load_markdown</a></code></li>
+<li><code><a title="pymarktex.Document.make_body" href="#pymarktex.Document.make_body">make_body</a></code></li>
+<li><code><a title="pymarktex.Document.make_latex" href="#pymarktex.Document.make_latex">make_latex</a></code></li>
+<li><code><a title="pymarktex.Document.make_pdf" href="#pymarktex.Document.make_pdf">make_pdf</a></code></li>
+<li><code><a title="pymarktex.Document.purge_cache" href="#pymarktex.Document.purge_cache">purge_cache</a></code></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</nav>
+</main>
+<footer id="footer">
+<p>Generated by <a href="https://pdoc3.github.io/pdoc"><cite>pdoc</cite> 0.8.3</a>.</p>
+</footer>
+</body>
+</html>
