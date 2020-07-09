@@ -74,16 +74,24 @@ class BareFigure(ScaledFigure):
 class DualFigure(LatexFigure):
     """A figure in latex code which has two sub-figures."""
 
-    def __init__(self, path_one, path_two, caption_one, caption_two, label_one, label_two, caption_main, label_main):
-        # Attributes #
-        self.path_one,    self.path_two    = Path(path_one), Path(path_two)
-        self.caption_one, self.caption_two = map(self.escape_underscore, (caption_one, caption_two))
+    def __init__(self, path_one, path_two, caption_one, caption_two,
+                 label_one, label_two, caption_main, label_main):
+        # Both paths #
+        self.path_one, self.path_two = Path(path_one), Path(path_two)
+        # Both subcaptions #
+        self.caption_one = self.escape_underscore(caption_one)
+        self.caption_two = self.escape_underscore(caption_two)
+        # The main caption #
         self.caption_main = self.escape_underscore(caption_main)
-        self.label_one    = r"\label{" + label_one + "}\n" if label_one is not None else ''
-        self.label_two    = r"\label{" + label_two + "}\n" if label_two is not None else ''
-        self.label_main   = r"\label{" + label_main + "}\n" if label_main is not None else ''
-        # Check #
-        if not self.path_one.exists or not self.path_two.exists: raise Exception("File missing.")
+        # Both reference labels #
+        self.label_one = r"\label{" + label_one + "}\n" if label_one is not None else ''
+        self.label_two = r"\label{" + label_two + "}\n" if label_two is not None else ''
+        # The main reference label #
+        self.label_main = r"\label{" + label_main + "}\n" if label_main is not None else ''
+        # Check existance #
+        if not self.path_one.exists or not self.path_two.exists:
+            raise Exception("File missing.")
+        # Check extension #
         if self.path_one.filename.count('.') > 1 or self.path_two.filename.count('.') > 1:
             raise Exception("Can't have several extension in a LaTeX figure file name.")
 
