@@ -102,16 +102,24 @@ class BareFigure(ScaledFigure):
 class DualFigure(LatexFigure):
     &#34;&#34;&#34;A figure in latex code which has two sub-figures.&#34;&#34;&#34;
 
-    def __init__(self, path_one, path_two, caption_one, caption_two, label_one, label_two, caption_main, label_main):
-        # Attributes #
-        self.path_one,    self.path_two    = Path(path_one), Path(path_two)
-        self.caption_one, self.caption_two = map(self.escape_underscore, (caption_one, caption_two))
+    def __init__(self, path_one, path_two, caption_one, caption_two,
+                 label_one, label_two, caption_main, label_main):
+        # Both paths #
+        self.path_one, self.path_two = Path(path_one), Path(path_two)
+        # Both subcaptions #
+        self.caption_one = self.escape_underscore(caption_one)
+        self.caption_two = self.escape_underscore(caption_two)
+        # The main caption #
         self.caption_main = self.escape_underscore(caption_main)
-        self.label_one    = r&#34;\label{&#34; + label_one + &#34;}\n&#34; if label_one is not None else &#39;&#39;
-        self.label_two    = r&#34;\label{&#34; + label_two + &#34;}\n&#34; if label_two is not None else &#39;&#39;
-        self.label_main   = r&#34;\label{&#34; + label_main + &#34;}\n&#34; if label_main is not None else &#39;&#39;
-        # Check #
-        if not self.path_one.exists or not self.path_two.exists: raise Exception(&#34;File missing.&#34;)
+        # Both reference labels #
+        self.label_one = r&#34;\label{&#34; + label_one + &#34;}\n&#34; if label_one is not None else &#39;&#39;
+        self.label_two = r&#34;\label{&#34; + label_two + &#34;}\n&#34; if label_two is not None else &#39;&#39;
+        # The main reference label #
+        self.label_main = r&#34;\label{&#34; + label_main + &#34;}\n&#34; if label_main is not None else &#39;&#39;
+        # Check existance #
+        if not self.path_one.exists or not self.path_two.exists:
+            raise Exception(&#34;File missing.&#34;)
+        # Check extension #
         if self.path_one.filename.count(&#39;.&#39;) &gt; 1 or self.path_two.filename.count(&#39;.&#39;) &gt; 1:
             raise Exception(&#34;Can&#39;t have several extension in a LaTeX figure file name.&#34;)
 
@@ -162,16 +170,24 @@ class DualFigure(LatexFigure):
 <pre><code class="python">class DualFigure(LatexFigure):
     &#34;&#34;&#34;A figure in latex code which has two sub-figures.&#34;&#34;&#34;
 
-    def __init__(self, path_one, path_two, caption_one, caption_two, label_one, label_two, caption_main, label_main):
-        # Attributes #
-        self.path_one,    self.path_two    = Path(path_one), Path(path_two)
-        self.caption_one, self.caption_two = map(self.escape_underscore, (caption_one, caption_two))
+    def __init__(self, path_one, path_two, caption_one, caption_two,
+                 label_one, label_two, caption_main, label_main):
+        # Both paths #
+        self.path_one, self.path_two = Path(path_one), Path(path_two)
+        # Both subcaptions #
+        self.caption_one = self.escape_underscore(caption_one)
+        self.caption_two = self.escape_underscore(caption_two)
+        # The main caption #
         self.caption_main = self.escape_underscore(caption_main)
-        self.label_one    = r&#34;\label{&#34; + label_one + &#34;}\n&#34; if label_one is not None else &#39;&#39;
-        self.label_two    = r&#34;\label{&#34; + label_two + &#34;}\n&#34; if label_two is not None else &#39;&#39;
-        self.label_main   = r&#34;\label{&#34; + label_main + &#34;}\n&#34; if label_main is not None else &#39;&#39;
-        # Check #
-        if not self.path_one.exists or not self.path_two.exists: raise Exception(&#34;File missing.&#34;)
+        # Both reference labels #
+        self.label_one = r&#34;\label{&#34; + label_one + &#34;}\n&#34; if label_one is not None else &#39;&#39;
+        self.label_two = r&#34;\label{&#34; + label_two + &#34;}\n&#34; if label_two is not None else &#39;&#39;
+        # The main reference label #
+        self.label_main = r&#34;\label{&#34; + label_main + &#34;}\n&#34; if label_main is not None else &#39;&#39;
+        # Check existance #
+        if not self.path_one.exists or not self.path_two.exists:
+            raise Exception(&#34;File missing.&#34;)
+        # Check extension #
         if self.path_one.filename.count(&#39;.&#39;) &gt; 1 or self.path_two.filename.count(&#39;.&#39;) &gt; 1:
             raise Exception(&#34;Can&#39;t have several extension in a LaTeX figure file name.&#34;)
 
