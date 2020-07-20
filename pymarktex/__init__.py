@@ -22,7 +22,7 @@ module_dir = Path(os.path.dirname(self.__file__))
 repos_dir = module_dir.directory
 
 # Various paths #
-logo_dir = repos_dir + 'logos/'
+logo_dir = module_dir + 'logos/'
 
 ###############################################################################
 class Document(object):
@@ -74,7 +74,7 @@ class Document(object):
         self.input_path.must_exist()
         self.input = self.input_path.contents_utf8
         # Separate the top params and the rest of the markdown #
-        find_results = re.findall(r'\A---(.+?)---(.+)', self.input, re.M|re.DOTALL)
+        find_results = re.findall(r'\A---(.+?)---(.+)', self.input, re.M | re.DOTALL)
         # We did not find any parameters #
         if not find_results:
             self.params = {}
