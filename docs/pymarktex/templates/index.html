@@ -41,6 +41,7 @@ class Template(object):
     search_dirs    = None
     str_encoding   = &#39;utf8&#39;
     file_encoding  = &#39;utf8&#39;
+    missing_tags   = &#39;strict&#39;
 
     def __repr__(self): return &#39;&lt;%s object on %s&gt;&#39; % (self.__class__.__name__, self.parent)
     def __str__(self):  return self.render()
@@ -48,20 +49,23 @@ class Template(object):
     def __init__(self, options=None):
         self.options = options if options else {}
 
-    def render(self, escape=None, search_dirs=None, delimiters=None, str_encoding=None, file_encoding=None):
+    def render(self, escape=None, search_dirs=None, delimiters=None,
+               str_encoding=None, file_encoding=None, missing_tags=None):
         # Options #
         delimiters    = self.delimiters    if delimiters is None    else delimiters
         escape        = self.escape        if escape is None        else escape
         search_dirs   = self.search_dirs   if search_dirs is None   else search_dirs
         str_encoding  = self.str_encoding  if str_encoding is None  else str_encoding
         file_encoding = self.file_encoding if file_encoding is None else file_encoding
+        missing_tags  = self.missing_tags  if missing_tags  is None else missing_tags
         # The delimiters are in the defaults #
         pystache.defaults.DELIMITERS = delimiters
         # Create renderer #
         renderer = pystache.Renderer(escape          = escape(),
                                      search_dirs     = search_dirs,
                                      string_encoding = str_encoding,
-                                     file_encoding   = file_encoding)
+                                     file_encoding   = file_encoding,
+                                     missing_tags    = missing_tags)
         # Call render #
         return renderer.render(self)</code></pre>
 </details>
@@ -108,6 +112,7 @@ class Template(object):
     search_dirs    = None
     str_encoding   = &#39;utf8&#39;
     file_encoding  = &#39;utf8&#39;
+    missing_tags   = &#39;strict&#39;
 
     def __repr__(self): return &#39;&lt;%s object on %s&gt;&#39; % (self.__class__.__name__, self.parent)
     def __str__(self):  return self.render()
@@ -115,20 +120,23 @@ class Template(object):
     def __init__(self, options=None):
         self.options = options if options else {}
 
-    def render(self, escape=None, search_dirs=None, delimiters=None, str_encoding=None, file_encoding=None):
+    def render(self, escape=None, search_dirs=None, delimiters=None,
+               str_encoding=None, file_encoding=None, missing_tags=None):
         # Options #
         delimiters    = self.delimiters    if delimiters is None    else delimiters
         escape        = self.escape        if escape is None        else escape
         search_dirs   = self.search_dirs   if search_dirs is None   else search_dirs
         str_encoding  = self.str_encoding  if str_encoding is None  else str_encoding
         file_encoding = self.file_encoding if file_encoding is None else file_encoding
+        missing_tags  = self.missing_tags  if missing_tags  is None else missing_tags
         # The delimiters are in the defaults #
         pystache.defaults.DELIMITERS = delimiters
         # Create renderer #
         renderer = pystache.Renderer(escape          = escape(),
                                      search_dirs     = search_dirs,
                                      string_encoding = str_encoding,
-                                     file_encoding   = file_encoding)
+                                     file_encoding   = file_encoding,
+                                     missing_tags    = missing_tags)
         # Call render #
         return renderer.render(self)</code></pre>
 </details>
@@ -150,6 +158,10 @@ class Template(object):
 <div class="desc"></div>
 </dd>
 <dt id="pymarktex.templates.Template.file_encoding"><code class="name">var <span class="ident">file_encoding</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="pymarktex.templates.Template.missing_tags"><code class="name">var <span class="ident">missing_tags</span></code></dt>
 <dd>
 <div class="desc"></div>
 </dd>
@@ -177,7 +189,7 @@ class Template(object):
 </details>
 </dd>
 <dt id="pymarktex.templates.Template.render"><code class="name flex">
-<span>def <span class="ident">render</span></span>(<span>self, escape=None, search_dirs=None, delimiters=None, str_encoding=None, file_encoding=None)</span>
+<span>def <span class="ident">render</span></span>(<span>self, escape=None, search_dirs=None, delimiters=None, str_encoding=None, file_encoding=None, missing_tags=None)</span>
 </code></dt>
 <dd>
 <div class="desc"></div>
@@ -185,20 +197,23 @@ class Template(object):
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">def render(self, escape=None, search_dirs=None, delimiters=None, str_encoding=None, file_encoding=None):
+<pre><code class="python">def render(self, escape=None, search_dirs=None, delimiters=None,
+           str_encoding=None, file_encoding=None, missing_tags=None):
     # Options #
     delimiters    = self.delimiters    if delimiters is None    else delimiters
     escape        = self.escape        if escape is None        else escape
     search_dirs   = self.search_dirs   if search_dirs is None   else search_dirs
     str_encoding  = self.str_encoding  if str_encoding is None  else str_encoding
     file_encoding = self.file_encoding if file_encoding is None else file_encoding
+    missing_tags  = self.missing_tags  if missing_tags  is None else missing_tags
     # The delimiters are in the defaults #
     pystache.defaults.DELIMITERS = delimiters
     # Create renderer #
     renderer = pystache.Renderer(escape          = escape(),
                                  search_dirs     = search_dirs,
                                  string_encoding = str_encoding,
-                                 file_encoding   = file_encoding)
+                                 file_encoding   = file_encoding,
+                                 missing_tags    = missing_tags)
     # Call render #
     return renderer.render(self)</code></pre>
 </details>
@@ -234,6 +249,7 @@ class Template(object):
 <li><code><a title="pymarktex.templates.Template.delimiters" href="#pymarktex.templates.Template.delimiters">delimiters</a></code></li>
 <li><code><a title="pymarktex.templates.Template.escape" href="#pymarktex.templates.Template.escape">escape</a></code></li>
 <li><code><a title="pymarktex.templates.Template.file_encoding" href="#pymarktex.templates.Template.file_encoding">file_encoding</a></code></li>
+<li><code><a title="pymarktex.templates.Template.missing_tags" href="#pymarktex.templates.Template.missing_tags">missing_tags</a></code></li>
 <li><code><a title="pymarktex.templates.Template.render" href="#pymarktex.templates.Template.render">render</a></code></li>
 <li><code><a title="pymarktex.templates.Template.search_dirs" href="#pymarktex.templates.Template.search_dirs">search_dirs</a></code></li>
 <li><code><a title="pymarktex.templates.Template.str_encoding" href="#pymarktex.templates.Template.str_encoding">str_encoding</a></code></li>
