@@ -5,6 +5,7 @@
 \usepackage{lmodern}
 \usepackage{amssymb,amsmath}
 \usepackage{color}
+\usepackage[table]{xcolor}
 
 % For native UTF-8 characters in XeTeX
 \usepackage{fontspec}
@@ -39,6 +40,10 @@
 
 % For cool tables
 \usepackage{longtable,booktabs}
+
+% For justifying text
+\usepackage{ragged2e}
+\setlength{\RaggedRightParindent}{\parindent}
 
 % Get URLs %
 \usepackage[unicode=true]{hyperref}
@@ -102,19 +107,30 @@
 % Removes the footer page numbering
 \fancyfoot[C]{}
 \let\headrule\relax
+% Enables ability to get right aligned tabular paragraphs
+\newcolumntype{R}[1]{>{\RaggedLeft\arraybackslash}p{#1}}
+% Removes the section title from appearing
+\fancyhead[R]{}
+\fancyhead[L]{}
 % Body of the header
 \chead{
-  \begin{tabular}{|p{6.5cm}|p{4cm}@{}p{3.5cm}|}
-    \hline \small
-    \textbf{@@[name]@@}, @@[status]@@\newline
-    @@[company]@@\newline
-    @@[subcompany]@@ &
+  \begin{tabular}{ p{6.5cm} R{6cm} p{0.7cm}}
+    \small
+    @@[name]@@@@[status]@@ \newline
+    \vspace{1.0mm} \hspace{-2.3mm} @@[company]@@ \newline
+    \textbf{@@[subcompany]@@}
+    \vspace{1.0mm}
+    &
     \small \textbf{@@[title]@@} \newline
+    \vspace{0.5mm}
     \today \newline
-    Page \thepage\ of \pageref{LastPage} &
-    \raisebox{-8.5mm}{\hspace{14mm}
-    \includegraphics[width=8.15mm, height=11mm]{@@[image_left]@@}
-    \includegraphics[width=11mm, height=11mm]{@@[image_right]@@}} \\
+    \vspace{0.8mm}
+    Page \thepage\ of \pageref{LastPage}
+    \vspace{1.5mm}
+    &
+    \raisebox{-11mm}{
+    \hspace{-4mm}
+    \includegraphics[width=9mm]{@@[image_path]@@}} \\
     \hline
   \end{tabular}
 \\[0.3cm]
@@ -122,3 +138,4 @@
 
 % ##################### DOCUMENT ##################### %
 \begin{document}
+
